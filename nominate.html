@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nominate a Boss · Top 100 Bosses of Bangalore</title>
+
+<style>
+  *, *::before, *::after{
+    font-style: normal !important;
+    font-synthesis: none !important;
+    font-variation-settings: "ital" 0, "slnt" 0 !important;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  }
+
+  :root{
+    --ink:#13100b;
+    --cream:#faf5ee;
+    --muted:#a89c8a;
+    --orange:#941B1B;
+    --orange-400:#B82424;
+    --line: rgba(250,245,238,0.05);
+    --line-2: rgba(250,245,238,0.10);
+    --max-page: 720px;
+    --font-helv: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  body{
+    background:var(--ink);
+    color:var(--cream);
+    font-family:var(--font-helv);
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    min-height:100vh;
+  }
+  h1,h2,h3,h4,h5,h6{font-weight:700;letter-spacing:-0.02em;margin:0}
+  a{color:inherit;text-decoration:none}
+
+  /* Floating logo, same pattern as other pages */
+  .logo-mark{
+    position:fixed;top:14px;left:14px;z-index:50;
+    display:inline-block;padding:0;background:none;border:0;
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+  .logo-mark img{
+    height:32px;width:auto;display:block;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.55));
+  }
+  @media (min-width:768px){
+    .logo-mark{ top:18px; left:18px; }
+    .logo-mark img{ height:38px; }
+  }
+
+  .page{max-width:var(--max-page);margin:0 auto;padding:0 20px;position:relative;z-index:1}
+  @media(min-width:640px){ .page{padding:0 32px} }
+
+  header.site{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:20px;padding-bottom:12px;
+  }
+  .back{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+    color:rgba(250,245,238,0.65);font-weight:500;
+    padding:8px 12px;border-radius:999px;
+    border:1px solid rgba(250,245,238,0.10);
+    background:rgba(250,245,238,0.04);
+    transition:background-color .15s ease, color .15s ease;
+  }
+  .back:hover{ color:var(--cream); background:rgba(250,245,238,0.08); }
+  @media (max-width: 480px){ .back{ margin-left:44px; } }
+
+  main.site{ padding: 28px 0 80px; }
+
+  .nom-hero{
+    text-align:left;
+    margin-bottom: 28px;
+  }
+  .nom-hero .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:10px;letter-spacing:0.26em;text-transform:uppercase;
+    color:rgba(250,245,238,0.55);font-weight:500;margin-bottom:10px;
+  }
+  .nom-hero .eyebrow .dot{
+    width:6px;height:6px;border-radius:999px;background:#22ff66;
+    box-shadow:0 0 6px rgba(34,255,102,0.6);
+  }
+  .nom-hero h1{
+    font-size: clamp(28px, 5vw, 40px);
+    line-height:1.05;color:var(--cream);letter-spacing:-0.025em;
+  }
+  .nom-hero p{
+    margin-top:14px;
+    font-size:15px;line-height:1.55;
+    color:rgba(250,245,238,0.75);
+    max-width:580px;
+  }
+
+  /* Form */
+  form.nom-form{
+    display:flex;flex-direction:column;gap:22px;
+    margin-top:8px;
+  }
+  .field{
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .field label{
+    font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;
+    color:rgba(250,245,238,0.65);font-weight:600;
+  }
+  .field .hint{
+    font-size:12px;color:rgba(250,245,238,0.5);font-weight:300;
+    line-height:1.4;
+  }
+  .field input[type="text"],
+  .field input[type="url"],
+  .field select,
+  .field textarea{
+    width:100%;display:block;
+    font-family:var(--font-helv);font-size:15px;color:var(--cream);
+    background:rgba(250,245,238,0.04);
+    border:1px solid rgba(250,245,238,0.12);
+    border-radius:12px;
+    padding:14px 16px;
+    outline:none;
+    transition:border-color .15s ease, background-color .15s ease;
+  }
+  .field select{
+    -webkit-appearance:none;-moz-appearance:none;appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23faf5ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;
+  }
+  .field select:focus{ border-color:rgba(184,36,36,0.6); background-color:rgba(250,245,238,0.06); }
+  .field select option{ background:#1a1410; color:var(--cream); }
+  .field .cat-preview{
+    display:block; width:300px; max-width:100%; align-self:flex-start;
+    margin-top:14px; border-radius:16px; overflow:hidden;
+    border:1px solid rgba(250,245,238,0.16);
+    box-shadow:0 14px 34px rgba(0,0,0,0.4); text-decoration:none;
+    transition:border-color .2s ease, transform .2s ease;
+    animation:catPop .35s cubic-bezier(0.2,0.9,0.2,1) both; }
+  .field .cat-preview:hover{ border-color:rgba(250,245,238,0.45); transform:translateY(-3px); }
+  .field .cat-preview img{ width:100%; height:auto; display:block; }
+  .field .cat-preview[hidden]{ display:none; }
+  @keyframes catPop{ from{ opacity:0; transform:translateY(10px) scale(0.97); } to{ opacity:1; transform:none; } }
+  .field textarea{
+    min-height:140px;resize:vertical;font-weight:300;line-height:1.55;
+  }
+  .field input:focus,
+  .field textarea:focus{
+    border-color:rgba(184,36,36,0.6);
+    background:rgba(250,245,238,0.06);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder{ color:rgba(250,245,238,0.30); }
+
+  /* Anonymous toggle */
+  .anon-toggle{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:6px;
+    font-size:12px;letter-spacing:0.04em;
+    color:rgba(250,245,238,0.7);font-weight:500;
+    cursor:pointer;user-select:none;
+  }
+  .anon-toggle input{ display:none; }
+  .anon-toggle .switch{
+    width:34px;height:20px;border-radius:999px;
+    background:rgba(250,245,238,0.10);
+    border:1px solid rgba(250,245,238,0.18);
+    position:relative;flex-shrink:0;
+    transition:background-color .15s ease, border-color .15s ease;
+  }
+  .anon-toggle .switch::after{
+    content:"";position:absolute;top:1px;left:1px;
+    width:16px;height:16px;border-radius:999px;background:var(--cream);
+    transition:transform .18s cubic-bezier(0.2,0.9,0.2,1);
+  }
+  .anon-toggle input:checked + .switch{
+    background:rgba(34,255,102,0.25);border-color:rgba(34,255,102,0.45);
+  }
+  .anon-toggle input:checked + .switch::after{
+    transform:translateX(14px);background:#22ff66;
+  }
+
+  .char-count{
+    align-self:flex-end;
+    font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+    color:rgba(250,245,238,0.45);font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+  .char-count.over{ color:#ff7a7a; }
+
+  .actions{
+    display:flex;align-items:center;gap:12px;justify-content:flex-end;
+    margin-top:10px;
+  }
+  .submit-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:13px 22px;border-radius:999px;border:0;cursor:pointer;
+    background:var(--orange);color:var(--cream);
+    font-size:12px;letter-spacing:0.18em;text-transform:uppercase;
+    font-weight:600;
+    box-shadow: 0 10px 24px rgba(148,27,27,0.35);
+    transition:background-color .15s ease, transform .15s ease, opacity .15s ease;
+  }
+  .submit-btn:hover{ background:var(--orange-400); transform:translateY(-1px); }
+  .submit-btn:disabled{
+    background:rgba(148,27,27,0.4);color:rgba(250,245,238,0.55);
+    cursor:not-allowed;box-shadow:none;transform:none;
+  }
+
+  /* Success state */
+  .success-card{
+    display:none;
+    margin-top:32px;
+    padding:24px 22px;
+    border-radius:14px;
+    border:1px solid rgba(34,255,102,0.35);
+    background:rgba(34,255,102,0.06);
+  }
+  .success-card.show{ display:block; }
+  .success-card .check{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.22em;text-transform:uppercase;
+    color:#22ff66;font-weight:600;
+  }
+  .success-card .check::before{
+    content:"";width:8px;height:8px;border-radius:999px;background:#22ff66;
+    box-shadow:0 0 8px rgba(34,255,102,0.7);
+  }
+  .success-card h3{
+    margin-top:8px;font-size:20px;line-height:1.2;color:var(--cream);
+    letter-spacing:-0.01em;
+  }
+  .success-card p{
+    margin-top:6px;font-size:14px;line-height:1.5;
+    color:rgba(250,245,238,0.7);
+  }
+  .success-card .row{
+    margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;
+  }
+  .success-card .row a{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 14px;border-radius:999px;
+    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    font-weight:600;
+  }
+  .success-card .row .primary{
+    background:var(--orange);color:var(--cream);
+  }
+  .success-card .row .primary:hover{ background:var(--orange-400); }
+  .success-card .row .ghost{
+    background:rgba(250,245,238,0.06);color:var(--cream);
+    border:1px solid rgba(250,245,238,0.12);
+  }
+  .success-card .row .ghost:hover{ background:rgba(250,245,238,0.10); }
+
+  footer.site{
+    max-width:var(--max-page);margin:0 auto;padding:24px 20px;
+    border-top:1px solid var(--line);
+    font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+    color:rgba(168,156,138,0.65);font-weight:300;
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
+    position:relative;z-index:1;
+  }
+</style>
+</head>
+<body>
+
+<a class="logo-mark" href="index.html" aria-label="Top 100 home">
+  <img src="top100%20bob%20logo%20FINAL.png" alt="Top 100" />
+</a>
+
+<div class="page">
+  <header class="site">
+    <a class="back" href="board.html">← Leaderboard</a>
+  </header>
+
+  <main class="site">
+    <section class="nom-hero">
+      <div class="eyebrow"><span class="dot"></span>Nominations open</div>
+      <h1>Put a great boss on the list.</h1>
+      <p>
+        Quick, anonymous if you want it to be. We're collecting names of bosses in Bangalore who actually made their teams better.
+        Editorial reads every nomination before anyone goes live, so specifics beat adjectives.
+      </p>
+    </section>
+
+    <form class="nom-form" id="nomForm" autocomplete="off" novalidate>
+      <div class="field">
+        <label for="nominator">Who's nominating</label>
+        <div class="hint">Add your name so the team can verify the story — or stay anonymous, we don't mind.</div>
+        <input type="text" id="nominator" name="nominator" placeholder="Your name" maxlength="60" />
+        <label class="anon-toggle">
+          <input type="checkbox" id="anonToggle" />
+          <span class="switch"></span>
+          Submit anonymously
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="bossLinkedin">Their LinkedIn</label>
+        <div class="hint">Helps us confirm who you mean. A profile link is best.</div>
+        <input type="url" id="bossLinkedin" name="bossLinkedin" placeholder="linkedin.com/in/..." inputmode="url" required />
+      </div>
+
+      <div class="field">
+        <label for="bossName">Their name</label>
+        <input type="text" id="bossName" name="bossName" placeholder="First and last name" maxlength="80" required />
+      </div>
+
+      <div class="field">
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+          <option value="" disabled selected>Pick a category</option>
+          <option value="founders-cxos">CXO</option>
+          <option value="eng">Engineering</option>
+          <option value="product">Product</option>
+        </select>
+        <a class="cat-preview" id="catPreview" hidden></a>
+      </div>
+
+      <div class="field">
+        <label for="why">Why they belong on this list</label>
+        <div class="hint">A specific moment is more useful than a list of qualities. What did they do that mattered?</div>
+        <textarea id="why" name="why" placeholder="e.g. They pulled me into a code review at 11pm before my first prod deploy and walked me through what could blow up. I shipped without breaking anything — and I knew why." maxlength="800" required></textarea>
+        <div class="char-count" id="whyCount">0 / 800</div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="submit-btn" id="submitBtn" disabled>Send Nomination</button>
+      </div>
+    </form>
+
+    <div class="success-card" id="successCard">
+      <div class="check">Got it</div>
+      <h3>Nomination received.</h3>
+      <p>Thanks. Editorial will read it within a few days. If they make the list, you'll see them on the leaderboard.</p>
+      <div class="row">
+        <a class="primary" href="#" id="submitAnother">Submit another</a>
+        <a class="ghost" href="board.html">Back to leaderboard</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="site">
+  <span>Top 100 Bosses of Bangalore</span>
+  <span><a href="index.html">Home</a></span>
+</footer>
+
+<script>
+  const form        = document.getElementById('nomForm');
+  const nominatorEl = document.getElementById('nominator');
+  const anonEl      = document.getElementById('anonToggle');
+  const linkedinEl  = document.getElementById('bossLinkedin');
+  const bossNameEl  = document.getElementById('bossName');
+  const categoryEl  = document.getElementById('category');
+  const whyEl       = document.getElementById('why');
+  const whyCount    = document.getElementById('whyCount');
+  const submitBtn   = document.getElementById('submitBtn');
+  const successCard = document.getElementById('successCard');
+  const submitAnother = document.getElementById('submitAnother');
+
+  function updateCount(){
+    const n = whyEl.value.length;
+    whyCount.textContent = n + ' / 800';
+    whyCount.classList.toggle('over', n > 800);
+  }
+  function validate(){
+    const link = linkedinEl.value.trim();
+    const name = bossNameEl.value.trim();
+    const why  = whyEl.value.trim();
+    const linkOk = link.length > 0 && /linkedin\.com\//i.test(link);
+    const nameOk = name.length >= 2;
+    const catOk  = categoryEl.value !== '';
+    const whyOk  = why.length >= 20 && why.length <= 800;
+    submitBtn.disabled = !(linkOk && nameOk && catOk && whyOk);
+  }
+  function randomUsername(){
+    const adj = ['Brave','Quiet','Swift','Wise','Bold','Calm','Sharp','Kind','Bright','Keen','Sly','Lucky','Mellow','Noble'];
+    const noun = ['Falcon','Tiger','Otter','Heron','Fox','Lynx','Crane','Wolf','Panda','Koel','Bison','Civet','Gaur','Owl'];
+    return adj[Math.floor(Math.random()*adj.length)] + noun[Math.floor(Math.random()*noun.length)] + Math.floor(100 + Math.random()*900);
+  }
+  anonEl.addEventListener('change', () => {
+    if (anonEl.checked){
+      nominatorEl.value = randomUsername();   // auto-generate a handle
+      nominatorEl.disabled = true;
+    } else {
+      nominatorEl.value = '';
+      nominatorEl.disabled = false;
+    }
+    validate();
+  });
+  [linkedinEl, bossNameEl, whyEl].forEach(el => el.addEventListener('input', validate));
+  // Show the category's poster card when one is picked.
+  const CAT_POSTER = {
+    'founders-cxos': 'cover.png',
+    'eng': 'frame4-small.jpg',
+    'product': 'frame5-small.jpg',
+  };
+  const CAT_BOARD = {
+    'founders-cxos': 'board.html?cat=founders-cxos',
+    'eng': 'board.html?cat=eng',
+    'product': 'board.html?cat=product',
+  };
+  const catPreview = document.getElementById('catPreview');
+  function updateCatPreview(){
+    const poster = CAT_POSTER[categoryEl.value];
+    if (poster){
+      catPreview.innerHTML = '<img src="' + poster + '" alt="" />';
+      catPreview.href = CAT_BOARD[categoryEl.value] || '#';
+      catPreview.hidden = false;
+      // restart the pop animation on each change
+      catPreview.style.animation = 'none'; void catPreview.offsetWidth; catPreview.style.animation = '';
+    } else {
+      catPreview.hidden = true; catPreview.innerHTML = '';
+    }
+  }
+  categoryEl.addEventListener('change', () => { validate(); updateCatPreview(); });
+
+  // Pre-select category from ?cat= (e.g. arriving from an Awards "Nominate" button).
+  (function(){
+    const cat = new URLSearchParams(location.search).get('cat');
+    if (cat && [...categoryEl.options].some(o => o.value === cat)){
+      categoryEl.value = cat; validate(); updateCatPreview();
+    }
+  })();
+  whyEl.addEventListener('input', updateCount);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    validate();
+    if (submitBtn.disabled) return;
+    const record = {
+      nominator: nominatorEl.value.trim(),
+      anonymous: anonEl.checked,
+      bossLinkedin: linkedinEl.value.trim(),
+      bossName: bossNameEl.value.trim(),
+      category: categoryEl.value,
+      why: whyEl.value.trim(),
+      ts: Date.now(),
+    };
+    try {
+      const all = JSON.parse(localStorage.getItem('nominations') || '[]');
+      all.unshift(record);
+      localStorage.setItem('nominations', JSON.stringify(all));
+    } catch(e){}
+    // Off to the thank-you page (we'll style it later).
+    window.location.href = 'thankyou.html';
+  });
+
+  submitAnother.addEventListener('click', (e) => {
+    e.preventDefault();
+    form.reset();
+    nominatorEl.disabled = false;
+    updateCount();
+    validate();
+    successCard.classList.remove('show');
+    form.style.display = 'flex';
+    nominatorEl.focus();
+  });
+</script>
+</body>
+</html>

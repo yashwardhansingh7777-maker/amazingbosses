@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Categories · Bosses of Bangalore</title>
+<meta name="description" content="The most amazing bosses in Bengaluru, by function — named by the people they led." />
+<link rel="icon" href="top100%20bob%20logo%20FINAL.png" type="image/png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#15110d',
+          cream: '#faf5ee',
+          orange: { DEFAULT: '#e84f1b', 400: '#f36a3a' },
+          gold: { DEFAULT: '#e9c46a', hi: '#fff0c9', lo: '#b8862f' },
+          paper: { DEFAULT: '#f4ecdc', ink: '#23190f' },
+          muted: '#6b6052',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          serif: ['Lora', 'ui-serif', 'Georgia', 'serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'Menlo', 'monospace'],
+        },
+        maxWidth: { page: '1280px' },
+        boxShadow: { glow: '0 0 60px rgba(232,79,27,0.18)' },
+        backgroundImage: {
+          'chart-gradient': 'linear-gradient(135deg,#FFE7C9,#FFD0A0 35%,#FFB47A 70%,#E84F1B)',
+        },
+        keyframes: { 'dot-pulse': { '0%,100%': { opacity: '.4' }, '50%': { opacity: '1' } } },
+        animation: { 'dot-pulse': 'dot-pulse 1.6s ease-in-out infinite' },
+      },
+    },
+  };
+</script>
+
+<style>
+  /* Color-cycle background from the old site:
+     blue (overall) -> red (founders) -> burnt orange (engineering) -> black (product) */
+  body {
+    background-color: #2a0707;
+    animation: bgCycle 24s ease-in-out infinite;
+    color: #faf5ee;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+  /* Slow cycle between dark red and black */
+  @keyframes bgCycle {
+    0%   { background-color: #070303; }
+    50%  { background-color: #3a0c0c; }
+    100% { background-color: #070303; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body { animation: none; background: #2a0707; }
+  }
+  ::selection { background: rgba(232,79,27,.35); color: #faf5ee; }
+  .avatar-gradient-a { background: linear-gradient(135deg,#ffb87a,#e84f1b 60%,#6b1b00); }
+
+  /* Floaty white sparks (copied from the homepage) — bottom layer, drifting upward */
+  .sparks { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .spark {
+    position: absolute; bottom: -16px; border-radius: 50%;
+    background: rgba(255,255,255,0.9); opacity: 0;
+    box-shadow: 0 0 4px 1px rgba(255,255,255,0.30);
+    animation: sparkFloat linear infinite; will-change: transform, opacity; }
+  .spark.big   { box-shadow: 0 0 6px 1px rgba(255,255,255,0.38); }
+  .spark.twinkle { animation: sparkFloat linear infinite, sparkTwinkle 2.2s ease-in-out infinite; }
+  @keyframes sparkFloat {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    12%  { opacity: 0.4; }
+    50%  { transform: translateY(-52vh) translateX(12px); opacity: 0.38; }
+    88%  { opacity: 0.32; }
+    100% { transform: translateY(-104vh) translateX(-8px); opacity: 0; } }
+  @keyframes sparkTwinkle { 0%,100% { opacity: 0.4; } 50% { opacity: 0.14; } }
+  @media (prefers-reduced-motion: reduce) { .spark { animation: none; opacity: 0.18; } }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .reveal { opacity: 0; transform: translateY(16px);
+    transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ===== Top100 category cards (ported from the Top 100 Bosses of Bangalore site) ===== */
+  .categories-heading { position: relative; z-index: 1; text-align: center; margin: 18px auto 6px; padding: 0 20px; }
+  .categories-heading .categories-label {
+    display: inline-block; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 600;
+    color: #faf5ee; padding-bottom: 8px; border-bottom: 1px solid rgba(250,245,238,0.14);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+  @media (min-width: 768px) { .categories-heading .categories-label { font-size: 13px; letter-spacing: 0.36em; } }
+
+  .cards-row {
+    display: flex; flex-direction: column; align-items: stretch;
+    gap: 32px; padding: 24px 0 48px; }
+  html { scroll-behavior: smooth; }
+  /* Masthead heading + live nominated counter (counter sits BELOW the heading) */
+  .awards-masthead {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; margin: 6px auto 18px; padding: 0 16px; text-align: center; }
+  .awards-title {
+    font-family: 'Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(30px, 5.4vw, 52px); font-weight: 700; letter-spacing: -0.02em;
+    color: #faf5ee; margin: 0; line-height: 1.04; }
+  .boss-counter {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(250,245,238,0.6); display: inline-flex; align-items: center; gap: 8px; }
+  .boss-counter .led-green {
+    width: 8px; height: 8px; border-radius: 999px; background: #22ff66; flex: 0 0 auto;
+    box-shadow: 0 0 6px 1px rgba(34,255,102,0.85), 0 0 14px 3px rgba(34,255,102,0.45);
+    animation: ledBlink 1.1s steps(1, end) infinite; }
+  @keyframes ledBlink {
+    0%, 60%   { opacity: 1;    box-shadow: 0 0 6px 1px rgba(34,255,102,0.9), 0 0 16px 4px rgba(34,255,102,0.55); }
+    61%, 100% { opacity: 0.25; box-shadow: 0 0 3px 1px rgba(34,255,102,0.35); } }
+  .boss-counter .boss-count-num {
+    color: #faf5ee; font-weight: 700; font-variant-numeric: tabular-nums;
+    transition: color .22s ease, text-shadow .22s ease; }
+  .boss-counter .boss-count-num.bump { color: #ffd8a0; text-shadow: 0 0 10px rgba(255,180,100,0.7); }
+
+  /* Category buttons */
+  .cat-nav {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    max-width: 600px; margin: 16px auto 6px; padding: 0 16px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; }
+  .cat-pill {
+    display: inline-flex; align-items: center; border-radius: 999px;
+    padding: 8px 18px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+    color: #faf5ee; background: transparent; border: 1px solid #ffffff;
+    text-decoration: none; transition: background-color .15s ease; }
+  .cat-pill:hover { background: rgba(255,255,255,0.1); }
+
+  .cat-row {
+    display: flex; align-items: flex-start; justify-content: flex-start;
+    gap: 16px; flex-wrap: wrap; scroll-margin-top: 24px; }
+  /* Text already lives in the poster images — hide the overlay text on the cards */
+  .cards-row .card .content,
+  .cards-row .card .clock { display: none; }
+  .card-col { display: flex; flex-direction: column; gap: 12px; flex: 0 0 auto; }
+  .nom-btn {
+    display: block; text-align: center; border-radius: 999px;
+    background: transparent; border: 1px solid #ffffff; color: #ffffff;
+    padding: 10px 18px; font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    transition: background-color 160ms ease; }
+  .nom-btn:hover { background: rgba(255,255,255,0.10); }
+
+  /* ===== Top-5 list preview beside each card (board-style, no panel bubble) ===== */
+  .preview {
+    flex: 1 1 420px; min-width: 300px;
+    background: transparent;
+    border: none;
+    padding: 6px 0 0;
+    display: flex; flex-direction: column;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; }
+  .preview .phead { margin-bottom: 14px; }
+  .preview .ptitle {
+    font-size: clamp(24px, 3.4vw, 34px); font-weight: 700; letter-spacing: -0.01em;
+    color: #faf5ee; line-height: 1.02; text-transform: uppercase; }
+  .preview .pmeta {
+    margin-top: 7px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(250,245,238,0.55); font-weight: 500; }
+  .preview .pcols {
+    display: grid; grid-template-columns: 18px 1.3fr 1fr 110px; gap: 12px;
+    padding: 8px 10px; border-bottom: 1px solid rgba(250,245,238,0.12);
+    font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(250,245,238,0.55); font-weight: 600; }
+  .preview .pcols .pcol-end { text-align: right; }
+  .preview .plist { display: flex; flex-direction: column; }
+  .preview .prow {
+    display: grid; grid-template-columns: 18px 44px 1fr 1fr 110px; gap: 12px;
+    align-items: center; padding: 10px;
+    border-bottom: 1px solid rgba(250,245,238,0.07);
+    border-radius: 10px;
+    transition: background-color 160ms ease; }
+  .preview .prow:hover { background: rgba(250,245,238,0.05); }
+  .preview .prank { font-size: 12px; color: rgba(250,245,238,0.45); font-weight: 600; text-align: center; }
+  .preview .ppfp { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
+  .preview .pwho { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .preview .pname {
+    font-size: 14.5px; font-weight: 700; color: #faf5ee; line-height: 1.15;
+    display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .preview .pbadge {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    background: #B82424; color: #faf5ee; border-radius: 4px; padding: 2px 6px; }
+  .preview .psub {
+    font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(250,245,238,0.5); font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .preview .pwhy {
+    font-size: 12.5px; color: rgba(250,245,238,0.85); line-height: 1.35; min-width: 0;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .preview .pvotes {
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(250,245,238,0.65); font-weight: 600; text-align: right; white-space: nowrap; }
+  .preview .pfoot {
+    margin-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 0 10px; }
+  .preview .pplus {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    color: rgba(250,245,238,0.55); }
+  .preview .pmore {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+    color: rgba(250,245,238,0.75); }
+  .preview .pmore:hover { color: #faf5ee; }
+
+  /* live overtake effects */
+  .preview .pvotes { position: relative; }
+  .preview .plus-one {
+    position: absolute; right: 0; top: -4px;
+    font-size: 11px; font-weight: 700; color: #22ff66;
+    text-shadow: 0 0 8px rgba(34,255,102,0.45);
+    animation: plusUp 1.4s ease-out forwards; pointer-events: none; }
+  @keyframes plusUp {
+    0%   { opacity: 0; transform: translateY(0); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-16px); }
+  }
+  .preview .prow.overtaking {
+    background: rgba(250,245,238,0.07);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+  @media (max-width: 720px) {
+    .preview .pcols { display: none; }
+    .preview .prow { grid-template-columns: 18px 44px 1fr 90px; }
+    .preview .pwhy { display: none; }
+  }
+  .card {
+    flex: 0 0 auto; width: min(78vw, 360px); aspect-ratio: 3/4; border-radius: 20px;
+    overflow: hidden; position: relative; background: #1c1612;
+    border: 1px solid rgba(250,245,238,0.10); box-shadow: 0 14px 36px rgba(0,0,0,0.45);
+    transition: transform 360ms cubic-bezier(0.2,0.9,0.2,1), box-shadow 360ms ease;
+    cursor: pointer; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; }
+  .card:hover { transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 24px 56px rgba(148,27,27,0.35), 0 14px 30px rgba(0,0,0,0.55); }
+  @media (min-width: 640px)  { .card { width: 340px; } }
+  @media (min-width: 1024px) { .card { width: 380px; } }
+  @media (min-width: 1280px) { .card { width: 420px; } }
+  .card .bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 600ms ease; }
+  .card:hover .bg { transform: scale(1.06); }
+  .card .veil { display: none; }
+  .card .content { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 22px; z-index: 2; }
+  .card .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,245,238,0.65); font-weight: 500; margin-bottom: 8px; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+  .card .label { font-size: clamp(22px, 5.5vw, 28px); line-height: 1.08; color: #faf5ee;
+    font-weight: 700; letter-spacing: -0.01em; margin: 0 0 10px; text-shadow: 0 2px 12px rgba(0,0,0,0.55); }
+  .card .meta { font-size: clamp(10px, 2.6vw, 12px); letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(250,245,238,0.75); font-weight: 500; text-shadow: 0 1px 8px rgba(0,0,0,0.65); }
+  .card .clock { position: absolute; left: 22px; right: 22px; bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    z-index: 3; pointer-events: none; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(250,245,238,0.65); font-weight: 500; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+  .card .clock .countdown { font-weight: 600; color: rgba(250,245,238,0.85); }
+</style>
+</head>
+
+<body class="text-paper-ink font-sans">
+<!-- Floaty white sparks drifting up in the background (same as the homepage) -->
+<div class="sparks" aria-hidden="true" id="sparks"></div>
+
+<!-- ============================================================= -->
+<!--  EDIT YOUR CONTENT HERE                                        -->
+<!-- ============================================================= -->
+<script>
+  const SITE = {
+    kicker: 'Tal Top 100',
+    brand: '*Bosses of Bangalore',
+    title: 'The Awards',
+    subtitle: 'The most amazing bosses in Bengaluru, by function — named by the people they led.',
+    footerLeft: 'Tal · Made in Bengaluru',
+    place: 'Bengaluru · 2026',
+  };
+
+</script>
+<!-- ============================================================= -->
+
+<div class="relative min-h-screen">
+  <!-- Outer header -->
+  <header class="mx-auto w-full max-w-page px-5 sm:px-8 pt-5 pb-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 sm:gap-5">
+      <a class="flex items-center gap-3 group shrink-0" href="index.html">
+        <img src="top100%20bob%20logo%20FINAL.png" alt="" style="width:38px;height:38px" class="rounded-[10px] object-contain shrink-0" />
+        <div class="leading-none shrink-0">
+          <div class="text-[15px] sm:text-[17px] font-semibold text-cream group-hover:text-orange transition-colors whitespace-nowrap" style="font-family:'Circular Std','Helvetica Neue',Helvetica,Arial,sans-serif" id="site-brand"></div>
+        </div>
+      </a>
+      <nav class="flex items-center gap-1">
+        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-semibold text-white ring-1 ring-white" href="awards.html">Categories</a>
+        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-medium text-white/70 hover:text-white" href="vouchwall.html">Vouch Wall</a>
+      </nav>
+    </div>
+    <a href="nominate.html" class="inline-flex items-center gap-2 bg-transparent ring-1 ring-white hover:bg-white/10 text-white rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors">
+      <span class="size-1.5 rounded-full bg-white animate-dot-pulse"></span>Nominate
+    </a>
+  </header>
+
+  <main class="relative z-[1] mx-auto w-full max-w-page px-5 sm:px-8 pb-32">
+    <main class="mx-auto w-full max-w-[1180px] px-4 sm:px-6 pb-28 pt-8">
+      <!-- Masthead heading + live nominated counter -->
+      <div class="awards-masthead">
+        <h1 class="awards-title">*Bosses of Bangalore</h1>
+        <div class="boss-counter"><span class="led-green"></span><span class="boss-count-num" id="bossCount">0</span> bosses nominated</div>
+      </div>
+
+      <!-- Top100 category cards (from the Top 100 Bosses of Bangalore site) -->
+      <div class="categories-heading">
+        <div class="categories-label">Categories</div>
+      </div>
+
+      <!-- Category buttons -->
+      <nav class="cat-nav" aria-label="Category shortcuts">
+        <a class="cat-pill" href="#cat-all">Overall</a>
+        <a class="cat-pill" href="#cat-founders-cxos">CXO</a>
+        <a class="cat-pill" href="#cat-eng">Engineering</a>
+        <a class="cat-pill" href="#cat-product">Product</a>
+      </nav>
+
+      <div class="cards-row" aria-label="Categories">
+
+        <div class="cat-row" id="cat-all">
+          <a class="card" href="board.html?cat=all">
+            <div class="bg" style="background-image:url('overall-small.jpg')"></div>
+            <div class="veil"></div>
+            <div class="content">
+              <div class="eyebrow">Category</div>
+              <div class="label">Overall</div>
+              <div class="meta">Bangalore's Top 100 · Tap to view</div>
+            </div>
+            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+          </a>
+          <div class="preview" data-cat="all" data-title="TOP 100 OVERALL" data-meta="Bengaluru &amp; Beyond · Crowd-nominated · Editorial"></div>
+        </div>
+
+        <div class="cat-row" id="cat-founders-cxos">
+          <a class="card" href="board.html?cat=founders-cxos">
+            <div class="bg" style="background-image:url('cover.png')"></div>
+            <div class="veil"></div>
+            <div class="content">
+              <div class="eyebrow">Category</div>
+              <div class="label">Founders / CXOs</div>
+              <div class="meta">Top voices · Tap to view</div>
+            </div>
+            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+          </a>
+          <div class="preview" data-cat="founders-cxos" data-title="CXO TOP 100" data-meta="Bengaluru &amp; Beyond · Crowd-nominated · Editorial"></div>
+        </div>
+
+        <div class="cat-row" id="cat-eng">
+          <a class="card" href="board.html?cat=eng">
+            <div class="bg" style="background-image:url('frame4-small.jpg')"></div>
+            <div class="veil"></div>
+            <div class="content">
+              <div class="eyebrow">Category</div>
+              <div class="label">Engineering</div>
+              <div class="meta">Builders &amp; CTOs · Tap to view</div>
+            </div>
+            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+          </a>
+          <div class="preview" data-cat="eng" data-title="ENG TOP 100" data-meta="Bengaluru &amp; Beyond · Crowd-nominated · Editorial"></div>
+        </div>
+
+        <div class="cat-row" id="cat-product">
+          <a class="card" href="board.html?cat=product">
+            <div class="bg" style="background-image:url('frame5-small.jpg')"></div>
+            <div class="veil"></div>
+            <div class="content">
+              <div class="eyebrow">Category</div>
+              <div class="label">Product</div>
+              <div class="meta">Leads &amp; designers · Tap to view</div>
+            </div>
+            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+          </a>
+          <div class="preview" data-cat="product" data-title="PRODUCT TOP 100" data-meta="Bengaluru &amp; Beyond · Crowd-nominated · Editorial"></div>
+        </div>
+
+      </div>
+    </main>
+  </main>
+
+  <!-- Outer footer -->
+  <footer class="mx-auto w-full max-w-page px-5 sm:px-8 py-10 text-xs font-mono uppercase tracking-[0.16em] text-cream/60 flex flex-wrap items-center justify-between gap-3 border-t border-cream/10">
+    <span id="footer-left"></span>
+    <span>
+      <a href="aboutus.html" class="hover:text-cream">About</a>
+      <span class="mx-2">·</span>
+      <a href="https://tal.af" target="_blank" rel="noreferrer" class="hover:text-cream">tal.af</a>
+    </span>
+  </footer>
+</div>
+
+<script src="people.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+
+  $('site-brand').textContent = SITE.brand;
+  $('footer-left').textContent = SITE.footerLeft;
+
+  // ---- floaty white sparks (same generator as the homepage) ----
+  (function () {
+    const wrap = document.getElementById('sparks');
+    if (!wrap) return;
+    const COUNT = 20;
+    let html = '';
+    for (let i = 0; i < COUNT; i++) {
+      const size = (Math.random() * 4 + 2).toFixed(1);
+      const left = (Math.random() * 100).toFixed(2);
+      const dur = (Math.random() * 14 + 12).toFixed(1);
+      const delay = (-Math.random() * 26).toFixed(1);
+      const big = Math.random() < 0.28 ? ' big' : '';
+      const tw = Math.random() < 0.5 ? ' twinkle' : '';
+      html += `<span class="spark${big}${tw}" style="left:${left}%;width:${size}px;height:${size}px;animation-duration:${dur}s,2.2s;animation-delay:${delay}s,${(-Math.random()*2.2).toFixed(1)}s"></span>`;
+    }
+    wrap.innerHTML = html;
+  })();
+
+  // ---- live "bosses nominated" counter beside the masthead title ----
+  (function () {
+    const el = document.getElementById('bossCount');
+    if (!el) return;
+    let n = 5000 + Math.floor(Math.random() * 180);
+    const fmt = (x) => x.toLocaleString('en-US');
+    el.textContent = fmt(n);
+    function bump() {
+      n += 1 + Math.floor(Math.random() * 3);
+      el.textContent = fmt(n);
+      el.classList.add('bump');
+      setTimeout(() => el.classList.remove('bump'), 380);
+      setTimeout(bump, 2400 + Math.random() * 1800);
+    }
+    setTimeout(bump, 2400 + Math.random() * 1800);
+  })();
+
+  // ---- "Nominate your boss" button below every category card (transparent + white stroke) ----
+  // Apart from Overall, each button names its category, e.g. "Nominate your boss for CXO Top 100".
+  const NOM_BTN_TEXT = {
+    'all': 'Nominate your boss →',
+    'founders-cxos': 'Nominate your boss for CXO Top 100 →',
+    'eng': 'Nominate your boss for ENG Top 100 →',
+    'product': 'Nominate your boss for Product Top 100 →',
+  };
+  document.querySelectorAll('.cat-row').forEach((row) => {
+    const card = row.querySelector('.card');
+    if (!card || row.querySelector('.nom-btn')) return;
+    const cat = row.querySelector('.preview')?.dataset.cat || 'all';
+    const col = document.createElement('div');
+    col.className = 'card-col';
+    row.insertBefore(col, card);
+    col.appendChild(card);
+    const btn = document.createElement('a');
+    btn.href = cat && cat !== 'all' ? ('nominate.html?cat=' + encodeURIComponent(cat)) : 'nominate.html';
+    btn.className = 'nom-btn';
+    btn.textContent = NOM_BTN_TEXT[cat] || 'Nominate your boss →';
+    col.appendChild(btn);
+  });
+
+  // ---- top-5 list previews beside each card (data from people.js) ----
+  function catList(cat) {
+    const list = Object.entries(PEOPLE).map(([id, p]) => ({ id, ...p }));
+    return cat === 'all' ? list : list.filter((p) => p.cat === cat);
+  }
+
+  function previewRow(p, i) {
+    return `
+      <a class="prow" href="profile.html?id=${encodeURIComponent(p.id)}" data-votes="${p.votes}">
+        <span class="prank">${i + 1}</span>
+        <img class="ppfp" src="${esc(p.pfp)}" alt="" loading="lazy" />
+        <span class="pwho">
+          <span class="pname">${esc(p.name)} <span class="pbadge">Top 100</span></span>
+          <span class="psub">${esc(p.sub)}</span>
+        </span>
+        <span class="pwhy">“${esc(p.why)}”</span>
+        <span class="pvotes"><span>${p.votes.toLocaleString('en-US')} vouches</span></span>
+      </a>`;
+  }
+
+  document.querySelectorAll('.preview').forEach((panel) => {
+    const cat = panel.dataset.cat;
+    const all = catList(cat).sort((a, b) => b.votes - a.votes);
+    const top = all.slice(0, 5);
+    const remaining = all.length - top.length;
+    panel.innerHTML = `
+      <div class="phead">
+        <div class="ptitle">${panel.dataset.title}</div>
+        <div class="pmeta">${panel.dataset.meta}</div>
+      </div>
+      <div class="pcols"><span>#</span><span>Boss</span><span class="pcol-why">Why</span><span class="pcol-end">Endorsements</span></div>
+      <div class="plist">${top.map(previewRow).join('')}</div>
+      <div class="pfoot">
+        <span class="pplus">${remaining > 0 ? '+ ' + remaining : ''}</span>
+        <a class="pmore" href="board.html?cat=${encodeURIComponent(cat)}">See full list →</a>
+      </div>`;
+    startOvertakes(panel);
+  });
+
+  // ---- live leaderboard: +1 vouch pops and overtake swaps, as on the old board ----
+  function startOvertakes(panel) {
+    const list = panel.querySelector('.plist');
+    let animating = false;
+    const rows = () => Array.from(list.children);
+
+    function renumber() {
+      rows().forEach((r, i) => { r.querySelector('.prank').textContent = i + 1; });
+    }
+    function setVotes(row, n) {
+      row.dataset.votes = n;
+      row.querySelector('.pvotes > span').textContent = n.toLocaleString('en-US') + ' vouches';
+    }
+    function spawnPlusOne(row) {
+      const votesEl = row.querySelector('.pvotes');
+      const p = document.createElement('span');
+      p.className = 'plus-one';
+      p.textContent = '+1';
+      votesEl.appendChild(p);
+      setTimeout(() => p.remove(), 1500);
+    }
+    function flipSwap(rowA, rowB) {
+      const rectA = rowA.getBoundingClientRect();
+      const rectB = rowB.getBoundingClientRect();
+      list.insertBefore(rowB, rowA);
+      const newRectA = rowA.getBoundingClientRect();
+      const newRectB = rowB.getBoundingClientRect();
+      rowA.style.transition = 'none';
+      rowB.style.transition = 'none';
+      rowA.style.transform = 'translateY(' + (rectA.top - newRectA.top) + 'px)';
+      rowB.style.transform = 'translateY(' + (rectB.top - newRectB.top) + 'px) scale(1.015)';
+      rowB.classList.add('overtaking');
+      void rowA.offsetHeight; // reflow
+      const ease = 'cubic-bezier(0.2, 0.9, 0.2, 1)';
+      rowA.style.transition = 'transform 720ms ' + ease;
+      rowB.style.transition = 'transform 720ms ' + ease + ', box-shadow 600ms ease';
+      rowA.style.transform = '';
+      rowB.style.transform = '';
+      setTimeout(() => {
+        rowB.classList.remove('overtaking');
+        rowA.style.transition = '';
+        rowB.style.transition = '';
+        renumber();
+        animating = false;
+      }, 900);
+    }
+    function tryOvertake() {
+      if (animating) return;
+      const rs = rows();
+      if (rs.length < 2) return;
+      // only let a row leap when it's within striking distance of the one above
+      const candidates = [];
+      for (let i = 1; i < rs.length; i++) {
+        const va = parseInt(rs[i - 1].dataset.votes, 10);
+        const vb = parseInt(rs[i].dataset.votes, 10);
+        if (va - vb <= 50) candidates.push(i);
+      }
+      if (!candidates.length) return;
+      const idx = candidates[Math.floor(Math.random() * candidates.length)];
+      const rowA = rs[idx - 1];
+      const rowB = rs[idx];
+      animating = true;
+      setVotes(rowB, parseInt(rowA.dataset.votes, 10) + 1);
+      spawnPlusOne(rowB);
+      setTimeout(() => flipSwap(rowA, rowB), 220);
+    }
+    (function loop() {
+      setTimeout(() => { tryOvertake(); loop(); }, 2000 + Math.random() * 2000);
+    })();
+  }
+
+  // ---- countdown on the category cards (same behavior as the old site) ----
+  const TOTAL_WINDOW_MS = (3 * 24 * 60 + 4 * 60 + 30) * 60 * 1000; // 3d 4h 30m
+  let savedTarget = sessionStorage.getItem('countdownTargetTs');
+  let COUNTDOWN_TARGET;
+  if (savedTarget && +savedTarget > Date.now()) {
+    COUNTDOWN_TARGET = new Date(+savedTarget);
+  } else {
+    COUNTDOWN_TARGET = new Date(Date.now() + TOTAL_WINDOW_MS);
+    sessionStorage.setItem('countdownTargetTs', String(COUNTDOWN_TARGET.getTime()));
+  }
+  function formatCountdown() {
+    const diff = COUNTDOWN_TARGET - new Date();
+    if (diff <= 0) return '0d 0h 0m 0s';
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    return days + 'd ' + hours + 'h ' + mins + 'm ' + secs + 's';
+  }
+  function tick() {
+    const text = formatCountdown();
+    document.querySelectorAll('.countdown').forEach((el) => { el.textContent = text; });
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

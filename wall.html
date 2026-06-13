@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Boss Wall · Amazing Bosses · Bengaluru</title>
+<link rel="icon" href="top100%20bob%20logo%20FINAL.png" type="image/png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#15110d',
+          cream: '#faf5ee',
+          orange: { DEFAULT: '#e84f1b', 400: '#f36a3a' },
+          gold: { DEFAULT: '#e9c46a', hi: '#fff0c9', lo: '#b8862f' },
+          paper: { DEFAULT: '#f4ecdc', ink: '#23190f' },
+          muted: '#6b6052',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          serif: ['Lora', 'ui-serif', 'Georgia', 'serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'Menlo', 'monospace'],
+        },
+        maxWidth: { page: '1280px' },
+        boxShadow: { glow: '0 0 60px rgba(232,79,27,0.18)' },
+        backgroundImage: {
+          'chart-gradient': 'linear-gradient(135deg,#FFE7C9,#FFD0A0 35%,#FFB47A 70%,#E84F1B)',
+        },
+        keyframes: { 'dot-pulse': { '0%,100%': { opacity: '.4' }, '50%': { opacity: '1' } } },
+        animation: { 'dot-pulse': 'dot-pulse 1.6s ease-in-out infinite' },
+      },
+    },
+  };
+</script>
+
+<style>
+  /* Dark shell — exactly how the wall pages looked on the original site */
+  html, body {
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(233,196,106,.10), transparent 55%),
+      radial-gradient(90% 60% at 50% 110%, rgba(232,79,27,.07), transparent 60%),
+      linear-gradient(180deg, #161009 0, #110c07 100%);
+    background-attachment: fixed;
+    color: #faf5ee;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgba(232,79,27,.35); color: #faf5ee; }
+  .reveal { opacity: 0; transform: translateY(16px);
+    transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+
+<body class="text-cream font-sans">
+<!-- ============================================================= -->
+<!--  EDIT BOSS WALLS HERE — page is picked by ?id=<slug>           -->
+<!-- ============================================================= -->
+<script>
+  const BOSSES = {
+    'shreeyash-dharmadhikari': {
+      name: 'Shreeyash Dharmadhikari',
+      role: 'Co-Founder',
+      org: 'Tal - AI Talent Agent',
+      img: 'images/shreeyash.jpg',
+      tags: ['Founders'],
+      status: 'Named · Editorial review pending',
+      namedCount: 1,
+      quotes: [
+        {
+          text: 'Calm in chaos · Brutally honest · Clear thinker · One of the best design leaders and clear thinkers in consumer',
+          by: 'someone who worked with them',
+          cat: 'Founders',
+          likes: 0,
+        },
+      ],
+    },
+    'mukul-arora': {
+      name: 'Mukul Arora',
+      role: 'Co-Managing Partner',
+      org: 'Elevation Capital',
+      img: 'images/mukul.jpg',
+      tags: ['Founders'],
+      status: 'Named · Editorial review pending',
+      namedCount: 1,
+      quotes: [
+        {
+          text: 'Brutally honest · Clear thinker · One of the best VC leaders - and one of the best consumer tech investors in India point blank',
+          by: 'someone who worked with them',
+          cat: 'Founders',
+          likes: 0,
+        },
+      ],
+    },
+    'jainam-tal-sania': {
+      name: 'Jainam TAL-sania',
+      role: 'Co-Founder- TAL, Grapevine',
+      org: 'tal (by Grapevine)',
+      img: 'images/jainam.jpg',
+      tags: ['Founders'],
+      status: 'Named · Editorial review pending',
+      namedCount: 1,
+      quotes: [
+        {
+          text: 'Brutally honest · Protects the team · Ships fast · One of the best product leaders - pragmatic and demonstrates immense bias for action',
+          by: 'someone who worked with them',
+          cat: 'Founders',
+          likes: 0,
+        },
+      ],
+    },
+  };
+</script>
+<!-- ============================================================= -->
+
+<div class="relative min-h-screen">
+  <!-- Outer header (dark, as on the original wall pages) -->
+  <header class="mx-auto w-full max-w-page px-5 sm:px-8 pt-5 pb-3 flex items-center justify-between">
+    <a class="flex items-center gap-3 group" href="index.html">
+      <img src="top100%20bob%20logo%20FINAL.png" alt="" style="width:38px;height:38px" class="rounded-[10px] object-contain shrink-0" />
+      <div class="leading-tight">
+        <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">Tal Top 100</div>
+        <div class="font-serif text-[15px] sm:text-[17px] text-cream group-hover:text-orange transition-colors">*Bosses of Bangalore</div>
+      </div>
+    </a>
+    <nav class="flex items-center gap-2 sm:gap-3">
+      <a href="nominate.html" class="inline-flex items-center gap-2 bg-orange hover:bg-orange-400 text-cream rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors">
+        <span class="size-1.5 rounded-full bg-cream animate-dot-pulse"></span>Nominate
+      </a>
+    </nav>
+  </header>
+
+  <main class="relative z-[1] mx-auto w-full max-w-page px-5 sm:px-8 pb-32">
+    <!-- Sticky dark bar with back link -->
+    <header class="sticky top-0 z-30 bg-[#150a07]/80 backdrop-blur-md border-b border-cream/[0.08]">
+      <div class="mx-auto w-full max-w-[1180px] px-4 h-14 flex items-center justify-between gap-3">
+        <a class="inline-flex items-center gap-1.5 text-[14px] font-medium text-cream/70 hover:text-cream transition-colors" href="index.html">
+          <svg viewBox="0 0 24 24" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>Feed
+        </a>
+        <a class="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-orange text-white px-4 py-2 text-[13px] font-medium hover:bg-orange/90 transition-colors" href="nominate.html">Name a boss</a>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-[600px] px-3 sm:px-4 pt-5 pb-28" id="wall">
+      <!-- rendered by JS -->
+    </main>
+  </main>
+
+  <footer class="mx-auto w-full max-w-page px-5 sm:px-8 py-10 text-xs font-mono uppercase tracking-[0.16em] text-muted/80 flex flex-wrap items-center justify-between gap-3 border-t border-cream/5">
+    <span>Tal · Made in Bengaluru</span>
+    <span>
+      <a href="#" class="hover:text-cream">About</a>
+      <span class="mx-2">·</span>
+      <a href="https://tal.af" target="_blank" rel="noreferrer" class="hover:text-cream">tal.af</a>
+    </span>
+  </footer>
+</div>
+
+<script>
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+  const heartSvg = `<svg viewBox="0 0 24 24" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.4 2 5 5.2 5c2 0 3.3 1.1 4.1 2.3L12 10l2.7-2.7C15.5 6.1 16.8 5 18.8 5 22 5 23.6 8.4 22 11.7 19.5 16.4 12 21 12 21z"></path></svg>`;
+
+  const id = new URLSearchParams(location.search).get('id');
+  const b = BOSSES[id];
+  const wall = document.getElementById('wall');
+
+  if (!b) {
+    wall.innerHTML = `<div class="text-center py-20 text-cream/60 font-mono text-sm uppercase tracking-[0.16em]">Boss not found. <a class="text-orange hover:underline" href="index.html">Back to feed</a></div>`;
+  } else {
+    document.title = `${b.name} · Amazing Bosses · Bengaluru`;
+    const quotes = b.quotes.map((q) => `
+      <li class="reveal bg-white rounded-2xl ring-1 ring-paper-ink/[0.06] shadow-[0_2px_14px_rgba(35,25,15,0.04)] px-5 py-4">
+        <div class="font-serif italic text-paper-ink/90 text-[17px] leading-snug">“${esc(q.text)}”</div>
+        <div class="flex items-center justify-between gap-3 mt-2.5 flex-wrap">
+          <div class="font-mono text-[10px] uppercase tracking-[0.1em] text-paper-ink/45">${esc(q.by)} · ${esc(q.cat)}</div>
+          <span class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[13px] font-medium text-paper-ink/45">
+            ${heartSvg}<span class="tabular-nums">${q.likes}</span>
+          </span>
+        </div>
+      </li>`).join('');
+
+    wall.innerHTML = `
+      <div class="reveal bg-white rounded-2xl ring-1 ring-paper-ink/[0.07] shadow-[0_2px_14px_rgba(35,25,15,0.05)] p-5 sm:p-6">
+        <div class="flex items-start gap-4 sm:gap-5">
+          <div class="relative shrink-0 rounded-2xl overflow-hidden size-20 sm:size-28">
+            <img alt="" class="object-cover absolute inset-0 w-full h-full" src="${esc(b.img)}" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="inline-flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-orange mb-1.5">
+              <span class="size-1.5 rounded-full bg-orange"></span>${esc(b.status)}
+            </div>
+            <h1 class="font-serif text-[26px] sm:text-[32px] text-paper-ink leading-tight">${esc(b.name)}</h1>
+            <div class="text-paper-ink/65 mt-1 text-[14px] leading-snug">${esc(b.role)}</div>
+            <div class="font-mono text-[10.5px] uppercase tracking-[0.12em] text-paper-ink/45 mt-1.5">${esc(b.org)}</div>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          ${b.tags.map(t => `<a class="px-2.5 py-1 rounded-full bg-gold-lo/10 ring-1 ring-gold-lo/25 font-mono text-[9.5px] uppercase tracking-[0.12em] text-gold-lo hover:ring-gold-lo/50 transition-colors" href="awards.html">${esc(t)}</a>`).join('')}
+        </div>
+        <div class="mt-4 pt-4 border-t border-paper-ink/[0.07] font-mono text-[10.5px] uppercase tracking-[0.1em] text-paper-ink/50">${b.namedCount} ${b.namedCount === 1 ? 'person has' : 'people have'} named them</div>
+      </div>
+
+      <div class="px-2 mt-6 mb-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-cream/45">Why people named them · ${b.quotes.length}</div>
+      <ul class="space-y-3">${quotes}</ul>
+
+      <div class="mt-7">
+        <a class="flex items-center justify-center gap-2 rounded-full bg-orange text-white px-5 py-3.5 text-[15px] font-medium hover:bg-orange/90 transition-colors" href="nominate.html">Name your boss too →</a>
+      </div>`;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
