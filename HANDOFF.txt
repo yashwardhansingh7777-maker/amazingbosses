@@ -1,0 +1,91 @@
+HANDOFF BRIEF — Amazing Bosses of Bangalore (static site clone)
+
+REPO
+  Owner/name: yashwardhansingh7777-maker/amazingbosses
+  URL:        https://github.com/yashwardhansingh7777-maker/amazingbosses
+  Default branch: main
+  Git author configured locally: infernobannedu (note: differs from repo owner account)
+  Local path: C:\Users\ron25\.claude\amazing-bosses-clone
+
+TECH STACK
+  Plain static site. No framework, no build step, no package.json, no node_modules.
+  HTML + CSS + vanilla JS. Tailwind via CDN (cdn.tailwindcss.com) with an inline
+  tailwind.config in each page. Google Fonts: Lora (serif), Inter (sans),
+  JetBrains Mono. Heading font stack prefers "Circular Std" then Helvetica/Arial
+  (Circular Std is not bundled — falls back to Helvetica).
+  All page data lives in people.js (a global PEOPLE object). No backend, no DB.
+
+FOLDER STRUCTURE
+  index.html      Home/feed: splash intro, color-cycle bg, white rising "sparks",
+                  infinite category carousel (auto-scroll desktop / swipe on touch),
+                  "Nominations Open" live counter, 21 vouch cards generated from people.js, footer.
+  awards.html     "Categories" page (title/nav say Categories; file is still awards.html).
+                  Big "*Bosses of Bangalore" heading + live "bosses nominated" counter w/ green LED,
+                  category buttons (Overall/CXO/Engineering/Product), 4 poster cards each with a
+                  top-5 live leaderboard preview + per-category "Nominate your boss for X" button.
+  vouchwall.html  "Vouch Wall" — same vouch cards as the home feed.
+  board.html      The category leaderboard (the actual "category pages"). Filter pills
+                  (Overall/blue, Founders-CXOs/red, Eng/orange, Product/black) swap a body theme
+                  class. White stars rise upward. Live overtake/+1 vouch animation. Reads ?cat=.
+  profile.html    Individual boss profile, reads ?id=<slug>. Shows 20 homepage-style vouch
+                  cards generated from other people in the list. Has a "vouch" form.
+  nominate.html   Nomination form. Category select (CXO/Engineering/Product) pops a poster card.
+                  Reads ?cat= to preselect. "Submit anonymously" generates a random username.
+                  On submit: saves to localStorage and redirects to thankyou.html.
+  thankyou.html   Basic placeholder thank-you page. PLACEHOLDER — needs design.
+  aboutus.html    Basic placeholder About page. PLACEHOLDER — needs design.
+  wall.html       Orphan early boss-wall prototype. Not linked from anywhere; safe to delete.
+  people.js       The data source: ~21 people {name, sub, why, pfp, cat, votes}. Categories
+                  are: founders-cxos, eng, product. (marketing-sales was removed everywhere.)
+  images/         landing masthead + a few headshots.
+  pfps/           21 profile photos referenced by people.js.
+  logo files:     "top100 bob logo FINAL.png" (current logo, used everywhere; referenced
+                  URL-ENCODED as top100%20bob%20logo%20FINAL.png because of the spaces),
+                  plus older logo.png / logo-small.png / images/tal-dp.png (unused).
+  poster images:  overall-small.jpg, cover.png, frame4-small.jpg, frame5-small.jpg (category cards).
+  .claude/launch.json  Claude Code preview config only (npx serve on port 4321). Not for prod.
+
+RUN LOCALLY
+  No package manager and nothing to install — it's static files.
+  Serve the folder with any static server, e.g.:
+    npx serve        (then open the printed URL, usually http://localhost:3000)
+    or: python -m http.server 8000   (http://localhost:8000)
+  Open index.html through the server (not file://) so relative paths and people.js load.
+  No dev/build/watch step exists.
+
+ENV VARS
+  NONE. The project has zero environment variables (no backend, no API keys, no secrets).
+  (Vercel CLI auth is account-level on the machine, not a project env var.)
+
+VERCEL
+  Project name: amazing-bosses-clone   (team/scope: ysh1x)
+  Live URL: https://amazing-bosses-clone.vercel.app
+  Deploy trigger: MANUAL via CLI only. From the project folder:
+      vercel --prod --yes --scope ysh1x
+  The GitHub repo is NOT connected to Vercel — pushing to GitHub does NOT auto-deploy.
+  Note: the global vercel CLI was reinstalled (vercel@latest) after a corrupted install.
+  Logged-in Vercel user: yashwardhan074-9917.
+
+WHAT'S BUILT
+  - Full multi-page static site cloning "Amazing Bosses / Top 100 Bosses of Bangalore".
+  - Site-wide dark-red<->black color cycle (bgCycle, 24s) + white upward "sparks" on home,
+    Categories, and board pages.
+  - Splash intro on home (black screen + centered logo slides up, ~4s).
+  - Home feed + Vouch Wall + per-profile vouches all generated from people.js.
+  - Like (toggle), Reply (inline composer), Share (popup with WhatsApp/X/LinkedIn/Telegram/
+    Email/Facebook + copy link) on feed cards — all client-side only, reset on reload.
+  - Nominate form with category preview cards, anonymous random username, localStorage save,
+    redirect to thankyou.html. Awards "Nominate your boss for <cat>" buttons deep-link with ?cat=.
+  - Mobile carousel: native swipe scroller that auto-advances and stops on first touch.
+  - Cross-page nav: Categories + Vouch Wall in header; About in footer.
+  - Deployed to Vercel + pushed to GitHub.
+
+OPEN TODOS
+  1. Design the thank-you page (thankyou.html) — currently a placeholder.
+  2. Design the About Us page (aboutus.html) — currently a placeholder.
+  3. Verify the mobile swipe carousel on a real device (couldn't be tested in the desktop
+     preview; logic is deployed).
+  4. (Optional) Connect the GitHub repo to the Vercel project for auto-deploy on push.
+  5. (Optional) Delete the orphan wall.html.
+  6. (Optional) Rename "top100 bob logo FINAL.png" to a space-free filename to drop URL-encoding.
+  7. Everything is front-end only — likes/replies/nominations don't persist to any backend.
