@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Vouch Wall · Bosses of Bangalore</title>
+<title>Nomination Wall · Bosses of Bangalore</title>
 <link rel="icon" href="top100%20bob%20logo%20FINAL.png" type="image/png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -101,7 +101,7 @@
       <nav class="flex items-center gap-1">
         <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-medium text-white/70 hover:text-white" href="leaderboard.html">Leaderboard</a>
         <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-medium text-white/70 hover:text-white" href="awards.html">Categories</a>
-        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-semibold text-white ring-1 ring-white" href="vouchwall.html">Vouch Wall</a>
+        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-semibold text-white ring-1 ring-white" href="vouchwall.html">Nomination Wall</a>
       </nav>
     </div>
     <a href="nominate.html" class="inline-flex items-center gap-2 bg-transparent ring-1 ring-white hover:bg-white/10 text-white rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors">
@@ -113,12 +113,17 @@
     <main class="mx-auto w-full max-w-[1280px] px-4 sm:px-6 pb-28">
       <!-- Heading -->
       <div class="pt-8 pb-6 text-center">
-        <h1 class="font-semibold text-[clamp(30px,5.4vw,52px)] leading-[1.04] tracking-[-0.02em]" style="font-family:'Circular Std','Helvetica Neue',Helvetica,Arial,sans-serif">Vouch Wall</h1>
+        <h1 class="font-semibold text-[clamp(30px,5.4vw,52px)] leading-[1.04] tracking-[-0.02em]" style="font-family:'Circular Std','Helvetica Neue',Helvetica,Arial,sans-serif">Nomination Wall</h1>
         <p class="text-[14px] text-white/60 mt-2">Every boss named by the people they led.</p>
+        <div class="mt-4 flex justify-center">
+          <a href="nominate.html" class="inline-flex items-center gap-2 rounded-full bg-transparent ring-1 ring-white text-white px-4 py-1.5 text-[13px] font-medium hover:bg-white/10 transition-colors">
+            <span class="size-1.5 rounded-full bg-white animate-dot-pulse"></span>Add a nomination
+          </a>
+        </div>
       </div>
 
-      <!-- Vouch cards (same as the home feed) -->
-      <div class="columns-1 sm:columns-2 lg:columns-3 2xl:columns-4 gap-4" id="feed"></div>
+      <!-- Nomination cards (same as the home feed), centered -->
+      <div class="flex flex-wrap justify-center gap-4" id="feed"></div>
     </main>
   </main>
 
@@ -188,7 +193,7 @@
   function card(p) {
     const named = `${p.namedCount} ${p.namedCount === 1 ? 'person has' : 'people have'} named them`;
     return `
-    <article class="reveal mb-4 break-inside-avoid bg-transparent rounded-2xl ring-1 ring-white/30 px-5 sm:px-6 pt-5 pb-3" data-slug="${esc(p.slug)}" data-boss="${esc(p.bossName)}">
+    <article class="reveal w-full sm:w-[calc(50%-0.5rem)] lg:w-[330px] self-start bg-transparent rounded-2xl ring-1 ring-white/30 px-5 sm:px-6 pt-5 pb-3" data-slug="${esc(p.slug)}" data-boss="${esc(p.bossName)}">
       <div class="flex items-center gap-3">
         <div class="relative shrink-0"><img src="${esc(p.authorImg)}" alt="" class="size-12 rounded-full object-cover ring-1 ring-white/25" /></div>
         <div class="min-w-0 flex-1">
