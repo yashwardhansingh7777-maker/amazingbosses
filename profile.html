@@ -29,13 +29,23 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;overflow-x:hidden}
   body{
-    background:var(--ink);
+    background-color:#2a0707;
+    animation:bgCycle 24s ease-in-out infinite;
     color:var(--cream);
     font-family:var(--font-helv);
     font-weight:300;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
     min-height:100vh;
+  }
+  /* Slow cycle between dark red and black */
+  @keyframes bgCycle{
+    0%{background-color:#070303;}
+    50%{background-color:#3a0c0c;}
+    100%{background-color:#070303;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    body{ animation:none; background:#2a0707; }
   }
   h1,h2,h3,h4,h5,h6{font-weight:700;letter-spacing:-0.02em;margin:0}
   a{color:inherit;text-decoration:none}
