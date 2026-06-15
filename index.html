@@ -154,6 +154,8 @@
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); } }
   .intro.done { display: none; }
+  /* Lock the page from scrolling while the splash is up */
+  html.intro-lock, html.intro-lock body { overflow: hidden !important; height: 100%; touch-action: none; overscroll-behavior: none; }
   @media (prefers-reduced-motion: reduce) {
     .intro, .intro-logo, .enter-btn { animation: none; }
     .intro.leaving { animation: none; }
@@ -581,12 +583,16 @@
   (function () {
     const intro = document.getElementById('intro');
     if (!intro) return;
-    const done = () => intro.classList.add('done');
+    const root = document.documentElement;
+    const done = () => { intro.classList.add('done'); root.classList.remove('intro-lock'); };
 
     // Only the very first load of the site (this session) gets the intro.
     let seen = false;
     try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
     if (seen) { done(); return; }
+
+    // Splash is up: stop the page behind it from scrolling.
+    root.classList.add('intro-lock');
 
     const btn = document.getElementById('enterBtn');
     intro.addEventListener('animationend', (e) => { if (e.animationName === 'introUp') done(); });
