@@ -178,7 +178,7 @@
         author: author.name, authorImg: author.pfp, age: ages[Math.floor(rnd() * ages.length)],
         quote: NOM_QUOTES[Math.floor(rnd() * NOM_QUOTES.length)],
         bossName: boss.name, bossImg: boss.pfp, bossRole: boss.sub,
-        bossCategory: CAT_LABEL[boss.cat] || 'Top 100', namedCount: 1,
+        bossCategory: CAT_LABEL[boss.cat] || 'Top 100', namedCount: boss.votes || 1,
         likes: Math.floor(rnd() * 12), slug: boss.slug,
       };
     });

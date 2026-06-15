@@ -724,7 +724,7 @@
         <div class="pills" id="filterPills">
           <button class="pill active" data-filter="all">Overall <span class="count">22</span></button>
           <button class="pill" data-filter="founders-cxos">Founders / CXOs <span class="count">9</span></button>
-          <button class="pill" data-filter="eng">Eng <span class="count">10</span></button>
+          <button class="pill" data-filter="eng">Engineering <span class="count">10</span></button>
           <button class="pill" data-filter="product">Product <span class="count">3</span></button>
         </div>
       </div>
@@ -1124,7 +1124,7 @@
   const BRAND_TITLES = {
     'all':             'overall top100bosses.blr',
     'founders-cxos':   'cxo top100bosses.blr',
-    'eng':             'eng top100bosses.blr',
+    'eng':             'engineering top100bosses.blr',
     'product':         'product top100bosses.blr',
   };
   pills.forEach(p => {
@@ -1150,7 +1150,7 @@
       // Hero title prefix follows category: CXO / ENG / PRODUCT / MARKETING (rest fall back to CXO)
       const heroPrefix = document.getElementById('heroPrefix');
       if (heroPrefix) {
-        const prefixes = { 'all': 'OVERALL', 'eng': 'ENG', 'product': 'PRODUCT' };
+        const prefixes = { 'all': 'OVERALL', 'eng': 'ENGINEERING', 'product': 'PRODUCT' };
         heroPrefix.textContent = prefixes[f] || 'CXO';
       }
     });
