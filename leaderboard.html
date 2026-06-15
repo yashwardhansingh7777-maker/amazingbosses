@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leaderboard · Bosses of Bangalore</title>
+<meta name="description" content="The overall Top 100 Bosses of Bangalore — ranked by vouches, named by the people they led." />
+<link rel="icon" href="top100%20bob%20logo%20FINAL.png" type="image/png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#15110d', cream: '#faf5ee',
+          orange: { DEFAULT: '#e84f1b', 400: '#f36a3a' },
+          gold: { DEFAULT: '#e9c46a', hi: '#fff0c9', lo: '#b8862f' },
+          paper: { DEFAULT: '#f4ecdc', ink: '#23190f' }, muted: '#6b6052',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          serif: ['Lora', 'ui-serif', 'Georgia', 'serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'Menlo', 'monospace'],
+        },
+        maxWidth: { page: '1280px' },
+        keyframes: { 'dot-pulse': { '0%,100%': { opacity: '.4' }, '50%': { opacity: '1' } } },
+        animation: { 'dot-pulse': 'dot-pulse 1.6s ease-in-out infinite' },
+      },
+    },
+  };
+</script>
+
+<style>
+  body {
+    background-color: #2a0707; animation: bgCycle 24s ease-in-out infinite;
+    color: #faf5ee; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; min-height: 100vh;
+  }
+  @keyframes bgCycle { 0%{background-color:#070303;} 50%{background-color:#3a0c0c;} 100%{background-color:#070303;} }
+  @media (prefers-reduced-motion: reduce) { body { animation: none; background:#2a0707; } }
+  ::selection { background: rgba(232,79,27,.35); color: #faf5ee; }
+
+  /* Masthead */
+  .lb-masthead { display:flex; flex-direction:column; align-items:center; gap:10px; margin:6px auto 18px; padding:0 16px; text-align:center; }
+  .lb-title { font-family:'Circular Std','Helvetica Neue',Helvetica,Arial,sans-serif; font-size:clamp(30px,5.4vw,52px); font-weight:700; letter-spacing:-0.02em; color:#faf5ee; margin:0; line-height:1.04; }
+  .boss-counter { font-family:Arial,"Helvetica Neue",Helvetica,sans-serif; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(250,245,238,0.6); display:inline-flex; align-items:center; gap:8px; }
+  .boss-counter .led-green { width:8px; height:8px; border-radius:999px; background:#22ff66; flex:0 0 auto;
+    box-shadow:0 0 6px 1px rgba(34,255,102,0.85),0 0 14px 3px rgba(34,255,102,0.45); animation:ledBlink 1.1s steps(1,end) infinite; }
+  @keyframes ledBlink { 0%,60%{opacity:1;} 61%,100%{opacity:0.25;} }
+  .boss-counter .boss-count-num { color:#faf5ee; font-weight:700; font-variant-numeric:tabular-nums; }
+
+  /* Layout: poster card + ranked list (mirrors the Categories cat-row) */
+  .lb-row { display:flex; align-items:flex-start; justify-content:flex-start; gap:24px; flex-wrap:wrap; }
+  .card {
+    flex:0 0 auto; width:min(78vw,360px); aspect-ratio:3/4; border-radius:20px; overflow:hidden; position:relative;
+    background:#1c1612; border:1px solid rgba(250,245,238,0.10); box-shadow:0 14px 36px rgba(0,0,0,0.45);
+    transition:transform 360ms cubic-bezier(0.2,0.9,0.2,1), box-shadow 360ms ease; cursor:pointer; }
+  .card:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 24px 56px rgba(148,27,27,0.35),0 14px 30px rgba(0,0,0,0.55); }
+  @media (min-width:640px)  { .card { width:340px; } }
+  @media (min-width:1024px) { .card { width:380px; } }
+  .card .bg { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform 600ms ease; }
+  .card:hover .bg { transform:scale(1.06); }
+
+  .lb-list-wrap { flex:1 1 460px; min-width:300px; font-family:Arial,"Helvetica Neue",Helvetica,sans-serif; }
+  .lb-head { margin-bottom:14px; }
+  .lb-ptitle { font-size:clamp(24px,3.4vw,34px); font-weight:700; letter-spacing:-0.01em; color:#faf5ee; line-height:1.02; text-transform:uppercase; }
+  .lb-pmeta { margin-top:7px; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(250,245,238,0.55); font-weight:500; }
+  .lb-cols { display:grid; grid-template-columns:34px 44px 1fr 110px; gap:12px; padding:8px 10px;
+    border-bottom:1px solid rgba(250,245,238,0.12); font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(250,245,238,0.55); font-weight:600; }
+  .lb-cols .end { text-align:right; }
+  .prow { display:grid; grid-template-columns:34px 44px 1fr 110px; gap:12px; align-items:center; padding:10px;
+    border-bottom:1px solid rgba(250,245,238,0.07); border-radius:10px; transition:background-color 160ms ease; text-decoration:none; color:inherit; }
+  .prow:hover { background:rgba(250,245,238,0.05); }
+  .prank { font-size:13px; color:rgba(250,245,238,0.5); font-weight:700; text-align:center; font-variant-numeric:tabular-nums; }
+  .prow.top1 .prank { color:#ffd87a; } .prow.top2 .prank { color:#e6e6e6; } .prow.top3 .prank { color:#e0a06a; }
+  .ppfp { width:44px; height:44px; border-radius:10px; object-fit:cover; }
+  .pwho { min-width:0; display:flex; flex-direction:column; gap:3px; }
+  .pname { font-size:14.5px; font-weight:700; color:#faf5ee; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .psub { font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(250,245,238,0.5); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pvotes { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(250,245,238,0.7); font-weight:700; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  @media (max-width:520px) { .lb-cols, .prow { grid-template-columns:28px 40px 1fr 76px; gap:9px; } }
+</style>
+</head>
+<body class="font-sans">
+
+<div class="relative min-h-screen">
+  <!-- Header -->
+  <header class="mx-auto w-full max-w-page px-5 sm:px-8 pt-5 pb-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 sm:gap-5">
+      <a class="flex items-center gap-3 group shrink-0" href="index.html">
+        <img src="top100%20bob%20logo%20FINAL.png" alt="" style="width:38px;height:38px" class="rounded-[10px] object-contain shrink-0" />
+        <div class="leading-none shrink-0">
+          <div class="text-[15px] sm:text-[17px] font-semibold text-cream group-hover:text-orange transition-colors whitespace-nowrap" style="font-family:'Circular Std','Helvetica Neue',Helvetica,Arial,sans-serif">Bosses of Bangalore</div>
+        </div>
+      </a>
+      <nav class="flex items-center gap-1">
+        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-semibold text-white ring-1 ring-white" href="leaderboard.html">Leaderboard</a>
+        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-medium text-white/70 hover:text-white" href="awards.html">Categories</a>
+        <a class="px-3 py-1.5 rounded-full text-[14px] transition-colors font-medium text-white/70 hover:text-white" href="vouchwall.html">Vouch Wall</a>
+      </nav>
+    </div>
+    <a href="nominate.html" class="inline-flex items-center gap-2 bg-transparent ring-1 ring-white hover:bg-white/10 text-white rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors">
+      <span class="size-1.5 rounded-full bg-white animate-dot-pulse"></span>Nominate
+    </a>
+  </header>
+
+  <main class="relative z-[1] mx-auto w-full max-w-[1180px] px-5 sm:px-8 pb-32 pt-6">
+    <div class="lb-masthead">
+      <h1 class="lb-title">Bosses of Bangalore</h1>
+      <div class="boss-counter"><span class="led-green"></span><span class="boss-count-num" id="bossCount">0</span> bosses nominated</div>
+    </div>
+
+    <div class="lb-row">
+      <!-- Overall poster card -->
+      <a class="card" href="board.html?cat=all" aria-label="Overall Top 100">
+        <div class="bg" style="background-image:url('overall-small.jpg')"></div>
+      </a>
+
+      <!-- Ranked Top 100 Overall -->
+      <div class="lb-list-wrap">
+        <div class="lb-head">
+          <div class="lb-ptitle">Top 100 · Overall</div>
+          <div class="lb-pmeta">Bengaluru &amp; Beyond · Ranked by vouches · Crowd-nominated</div>
+        </div>
+        <div class="lb-cols">
+          <span>#</span><span></span><span>Boss</span><span class="end">Vouches</span>
+        </div>
+        <div class="lb-plist" id="lbList"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mx-auto w-full max-w-page px-5 sm:px-8 py-10 text-xs font-mono uppercase tracking-[0.16em] text-white/55 flex flex-wrap items-center justify-between gap-3 border-t border-white/10">
+    <span>Tal · Made in Bengaluru</span>
+    <span>
+      <a href="aboutus.html" class="hover:text-white">About</a>
+      <span class="mx-2">·</span>
+      <a href="https://tal.af" target="_blank" rel="noreferrer" class="hover:text-white">tal.af</a>
+    </span>
+  </footer>
+</div>
+
+<script src="people.js"></script>
+<script src="sparks.js"></script>
+<script>
+  (function () {
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+    if (typeof PEOPLE === 'undefined') return;
+    const people = Object.entries(PEOPLE).map(([slug, p]) => ({ slug, ...p }));
+    // Overall = everyone, ranked by total vouches, capped at the Top 100.
+    people.sort((a, b) => (b.votes || 0) - (a.votes || 0));
+    const top = people.slice(0, 100);
+
+    const list = document.getElementById('lbList');
+    list.innerHTML = top.map((p, i) => {
+      const rank = i + 1;
+      const topClass = rank <= 3 ? ' top' + rank : '';
+      return `<a class="prow${topClass}" href="profile.html?id=${encodeURIComponent(p.slug)}">
+        <div class="prank">${rank}</div>
+        <img class="ppfp" src="${esc(p.pfp)}" alt="" />
+        <div class="pwho">
+          <div class="pname">${esc(p.name)}</div>
+          <div class="psub">${esc(p.sub || '')}</div>
+        </div>
+        <div class="pvotes">${(p.votes || 0).toLocaleString('en-US')}</div>
+      </a>`;
+    }).join('');
+
+    // Live "bosses nominated" counter (same flavor as the other pages)
+    const cnt = document.getElementById('bossCount');
+    if (cnt) {
+      let n = 4900 + Math.floor(Math.random() * 220);
+      const paint = () => { cnt.textContent = n.toLocaleString('en-US'); };
+      paint();
+      (function bump() {
+        n += 1 + Math.floor(Math.random() * 3);
+        paint();
+        setTimeout(bump, 2400 + Math.random() * 1800);
+      })();
+    }
+  })();
+</script>
+</body>
+</html>
