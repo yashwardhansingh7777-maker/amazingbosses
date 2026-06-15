@@ -48,7 +48,7 @@
      blue (overall) -> red (founders) -> burnt orange (engineering) -> black (product) */
   html, body { overflow-x: hidden; }
   body {
-    background-color: #2a0707;
+    background-color: #070303;
     animation: bgCycle 24s ease-in-out infinite;
     color: #faf5ee;
     min-height: 100vh;
@@ -58,11 +58,11 @@
   /* Slow cycle between dark red and black */
   @keyframes bgCycle {
     0%   { background-color: #070303; }
-    50%  { background-color: #3a0c0c; }
+    50%  { background-color: #070303; }
     100% { background-color: #070303; }
   }
   @media (prefers-reduced-motion: reduce) {
-    body { animation: none; background: #2a0707; }
+    body { animation: none; background: #070303; }
   }
   ::selection { background: rgba(232,79,27,.35); color: #faf5ee; }
   .avatar-gradient-a { background: linear-gradient(135deg,#ffb87a,#e84f1b 60%,#6b1b00); }
