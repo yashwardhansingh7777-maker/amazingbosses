@@ -171,6 +171,20 @@
   .noms-bar .stat-num.bump { color: #ffd8a0; text-shadow: 0 0 10px rgba(255,180,100,0.75); }
   .noms-bar .overlay-sep { opacity: 0.5; }
 
+  /* ===== Results countdown timer ===== */
+  .countdown-num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700;
+    font-size: clamp(28px, 7vw, 46px); line-height: 1; color: #faf5ee;
+    font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+    text-shadow: 0 0 18px rgba(255,180,100,0.25); }
+  .countdown-lbl {
+    margin-top: 8px; font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.22em; color: rgba(250,245,238,0.5); }
+  .countdown-sep {
+    font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700;
+    font-size: clamp(24px, 6vw, 40px); line-height: 1; color: rgba(250,245,238,0.35);
+    transform: translateY(-9px); }
+
   /* ===== "Top100 Categories" heading above the carousel ===== */
   .categories-heading { position: relative; z-index: 1; text-align: center; margin: 18px auto 6px; padding: 0 20px; }
   .categories-heading .categories-label {
@@ -452,10 +466,39 @@
         </span>
       </div>
 
-      <!-- Masonry feed -->
-      <div class="mt-4 columns-1 sm:columns-2 lg:columns-3 2xl:columns-4 gap-4" id="feed"></div>
+      <!-- Vouch feed (centered flex so partial last rows stay centered) -->
+      <div class="mt-4 flex flex-wrap justify-center gap-4" id="feed"></div>
     </main>
   </main>
+
+  <!-- Results countdown banner -->
+  <section class="mx-auto w-full max-w-page px-5 sm:px-8 pt-12 pb-2 text-center">
+    <p class="font-bold text-white text-lg sm:text-xl max-w-xl mx-auto leading-snug">
+      Great bosses respect your time. So the best ones will get an Apple Watch.
+    </p>
+    <p class="mt-6 text-xs font-mono uppercase tracking-[0.22em] text-white/55">Results announcing in</p>
+    <div class="mt-4 flex items-end justify-center gap-3 sm:gap-5" id="resultsTimer">
+      <div class="flex flex-col items-center">
+        <span class="countdown-num" data-cd="days">00</span>
+        <span class="countdown-lbl">Days</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="flex flex-col items-center">
+        <span class="countdown-num" data-cd="hours">00</span>
+        <span class="countdown-lbl">Hours</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="flex flex-col items-center">
+        <span class="countdown-num" data-cd="mins">00</span>
+        <span class="countdown-lbl">Mins</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="flex flex-col items-center">
+        <span class="countdown-num" data-cd="secs">00</span>
+        <span class="countdown-lbl">Secs</span>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="mx-auto w-full max-w-page px-5 sm:px-8 py-10 text-xs font-mono uppercase tracking-[0.16em] text-white/55 flex flex-wrap items-center justify-between gap-3 border-t border-white/10">
@@ -549,6 +592,29 @@
     setTimeout(bump, 2400 + Math.random() * 1800);
   })();
 
+  // ---- Results announcement countdown ----
+  (function () {
+    const timer = document.getElementById('resultsTimer');
+    if (!timer) return;
+    // Fixed target so the countdown is consistent across reloads (~7 days out).
+    const target = new Date('2026-06-22T20:30:00+05:30').getTime();
+    const pad = (n) => String(n).padStart(2, '0');
+    const set = (key, val) => {
+      const el = timer.querySelector('[data-cd="' + key + '"]');
+      if (el) el.textContent = pad(val);
+    };
+    function tick() {
+      let diff = Math.max(0, target - Date.now());
+      const days = Math.floor(diff / 86400000); diff -= days * 86400000;
+      const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
+      const mins = Math.floor(diff / 60000); diff -= mins * 60000;
+      const secs = Math.floor(diff / 1000);
+      set('days', days); set('hours', hours); set('mins', mins); set('secs', secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
   // ---- carousel card countdown (same behavior as the old site) ----
   (function () {
     const TOTAL_WINDOW_MS = (3 * 24 * 60 + 4 * 60 + 30) * 60 * 1000; // 3d 4h 30m
@@ -628,7 +694,7 @@
   function card(p) {
     const named = `${p.namedCount} ${p.namedCount === 1 ? 'person has' : 'people have'} named them`;
     return `
-    <article class="reveal mb-4 break-inside-avoid bg-transparent rounded-2xl ring-1 ring-white/30 px-5 sm:px-6 pt-5 pb-3" data-slug="${esc(p.slug)}" data-boss="${esc(p.bossName)}">
+    <article class="reveal w-full sm:w-[calc(50%-0.5rem)] lg:w-[330px] self-start bg-transparent rounded-2xl ring-1 ring-white/30 px-5 sm:px-6 pt-5 pb-3" data-slug="${esc(p.slug)}" data-boss="${esc(p.bossName)}">
       <div class="flex items-center gap-3">
         <div class="relative shrink-0">
           <img src="${esc(p.authorImg)}" alt="" class="size-12 rounded-full object-cover ring-1 ring-white/25" />
