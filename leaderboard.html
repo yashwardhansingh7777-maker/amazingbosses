@@ -240,7 +240,7 @@
         // Saumil reclaims / holds #1
         if (live[LEADER] <= maxVotes) live[LEADER] = maxVotes + 1 + Math.floor(Math.random() * 2);
         // frequent brief Sanchit-leads windows for constant #1 back-and-forth
-        if (Math.random() < 0.3) leaderPhase = 1 + Math.floor(Math.random() * 2);
+        if (Math.random() < 0.2) leaderPhase = 1 + Math.floor(Math.random() * 2);
       }
     }
 
@@ -278,7 +278,7 @@
 
     function tick() {
       // award a flurry of fresh vouches — lots of small leapfrogs across the cluster
-      const bumps = 6 + Math.floor(Math.random() * 6);
+      const bumps = 4 + Math.floor(Math.random() * 4);
       for (let i = 0; i < bumps; i++) {
         // strongly bias toward the lively top cluster so ranks keep trading
         const pool = Math.random() < 0.88 ? top.slice(0, 9) : top;
@@ -287,11 +287,11 @@
         live[p.slug] += inc;
         showGain(p.slug, inc);
       }
-      // give a couple of trailing cluster members a shove so they leapfrog ahead
+      // occasionally shove a trailing cluster member so it leapfrogs ahead
       const cluster = top.slice(0, 9).map((p) => p.slug);
-      for (let k = 0; k < 2; k++) {
+      if (Math.random() < 0.7) {
         const s = cluster[3 + Math.floor(Math.random() * (cluster.length - 3))];
-        const inc = 3 + Math.floor(Math.random() * 8);
+        const inc = 3 + Math.floor(Math.random() * 7);
         live[s] += inc;
         showGain(s, inc);
       }
@@ -302,7 +302,7 @@
         const numEl = rowEls[s].querySelector('.pv-num');
         if (numEl) numEl.textContent = fmt(live[s]);
       });
-      setTimeout(tick, 800 + Math.random() * 700);
+      setTimeout(tick, 1200 + Math.random() * 1050);
     }
 
     function showGain(slug, inc) {
