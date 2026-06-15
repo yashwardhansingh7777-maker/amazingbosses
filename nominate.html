@@ -397,6 +397,39 @@
     validate();
   });
   [linkedinEl, bossNameEl, whyEl].forEach(el => el.addEventListener('input', validate));
+
+  // ---- Auto-fill the boss's name from their LinkedIn profile link ----
+  // e.g. linkedin.com/in/yashwardhan-singh  ->  "Yashwardhan Singh"
+  // If only the first name is clear, fill just that. If unsure, leave it blank.
+  let nameAutoFilled = false;   // so we never clobber a name the user typed themselves
+  function nameFromLinkedin(url){
+    if (!url) return '';
+    let s = String(url).trim().toLowerCase();
+    // pull the /in/<slug> segment from a full profile URL
+    const m = s.match(/\/in\/([^/?#]+)/);
+    let slug = m ? m[1] : '';
+    // allow pasting just the bare slug (no dots / no slashes)
+    if (!slug && /^[a-z0-9\-]+$/.test(s) && !s.includes('.') && !s.includes('/')) slug = s;
+    if (!slug) return '';
+    try { slug = decodeURIComponent(slug); } catch (e) {}
+    // split on hyphens, drop LinkedIn's trailing unique id (any token with a digit),
+    // then keep only clean alphabetic, name-plausible tokens
+    const parts = slug.split('-').filter(Boolean)
+      .filter(t => !/\d/.test(t))
+      .filter(t => /^[a-z]{2,}$/.test(t));
+    if (parts.length === 0) return '';                 // unsure -> leave blank
+    const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
+    if (parts.length === 1) return cap(parts[0]);      // first name only
+    return cap(parts[0]) + ' ' + cap(parts[1]);        // first + last
+  }
+  function maybeFillName(){
+    if (bossNameEl.value && !nameAutoFilled) return;   // respect a manually entered name
+    const name = nameFromLinkedin(linkedinEl.value);
+    if (name) { bossNameEl.value = name; nameAutoFilled = true; validate(); }
+  }
+  linkedinEl.addEventListener('input', maybeFillName);
+  linkedinEl.addEventListener('blur', maybeFillName);
+  bossNameEl.addEventListener('input', () => { nameAutoFilled = false; });
   // Show the category's poster card when one is picked.
   const CAT_POSTER = {
     'founders-cxos': 'cover.png',
