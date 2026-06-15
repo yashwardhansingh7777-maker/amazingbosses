@@ -69,20 +69,27 @@
   .lb-head { margin-bottom:14px; }
   .lb-ptitle { font-size:clamp(24px,3.4vw,34px); font-weight:700; letter-spacing:-0.01em; color:#faf5ee; line-height:1.02; text-transform:uppercase; }
   .lb-pmeta { margin-top:7px; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(250,245,238,0.55); font-weight:500; }
-  .lb-cols { display:grid; grid-template-columns:34px 44px 1fr 110px; gap:12px; padding:8px 10px;
+  .lb-cols { display:grid; grid-template-columns:56px 56px 1fr 150px 110px; gap:14px; padding:8px 12px;
     border-bottom:1px solid rgba(250,245,238,0.12); font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(250,245,238,0.55); font-weight:600; }
   .lb-cols .end { text-align:right; }
-  .prow { display:grid; grid-template-columns:34px 44px 1fr 110px; gap:12px; align-items:center; padding:10px;
+  .prow { display:grid; grid-template-columns:56px 56px 1fr 150px 110px; gap:14px; align-items:center; padding:13px 12px;
     border-bottom:1px solid rgba(250,245,238,0.07); border-radius:10px; transition:background-color 160ms ease; text-decoration:none; color:inherit; }
   .prow:hover { background:rgba(250,245,238,0.05); }
-  .prank { font-size:13px; color:rgba(250,245,238,0.5); font-weight:700; text-align:center; font-variant-numeric:tabular-nums; }
+  .prank { font-size:24px; color:rgba(250,245,238,0.55); font-weight:800; text-align:center; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; }
   .prow.top1 .prank { color:#ffd87a; } .prow.top2 .prank { color:#e6e6e6; } .prow.top3 .prank { color:#e0a06a; }
-  .ppfp { width:44px; height:44px; border-radius:10px; object-fit:cover; }
+  .ppfp { width:52px; height:52px; border-radius:12px; object-fit:cover; }
   .pwho { min-width:0; display:flex; flex-direction:column; gap:3px; }
-  .pname { font-size:14.5px; font-weight:700; color:#faf5ee; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .psub { font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(250,245,238,0.5); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .pvotes { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(250,245,238,0.7); font-weight:700; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
-  @media (max-width:520px) { .lb-cols, .prow { grid-template-columns:28px 40px 1fr 76px; gap:9px; } }
+  .pname { font-size:19px; font-weight:700; color:#faf5ee; line-height:1.18; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .psub { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,245,238,0.45); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pcat { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(250,245,238,0.78); font-weight:600;
+    border:1px solid rgba(250,245,238,0.22); border-radius:999px; padding:5px 12px; justify-self:start; white-space:nowrap; }
+  .pvotes { font-size:14px; letter-spacing:0.04em; text-transform:uppercase; color:#faf5ee; font-weight:700; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  @media (max-width:640px) {
+    .lb-cols, .prow { grid-template-columns:42px 48px 1fr 84px; gap:10px; }
+    .lb-cols .col-cat, .pcat { display:none; }
+    .prank { font-size:20px; }
+    .pname { font-size:16.5px; }
+  }
 </style>
 </head>
 <body class="font-sans">
@@ -127,7 +134,7 @@
           <div class="lb-pmeta">Bengaluru &amp; Beyond · Ranked by vouches · Crowd-nominated</div>
         </div>
         <div class="lb-cols">
-          <span>#</span><span></span><span>Boss</span><span class="end">Vouches</span>
+          <span>Rank</span><span></span><span>Boss</span><span class="col-cat">Category</span><span class="end">Vouches</span>
         </div>
         <div class="lb-plist" id="lbList"></div>
       </div>
@@ -151,6 +158,7 @@
   (function () {
     const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
     if (typeof PEOPLE === 'undefined') return;
+    const CAT_LABEL = { 'eng': 'Engineering', 'founders-cxos': 'Founder / CTO', 'product': 'Product' };
     const people = Object.entries(PEOPLE).map(([slug, p]) => ({ slug, ...p }));
     // Overall = everyone, ranked by total vouches, capped at the Top 100.
     people.sort((a, b) => (b.votes || 0) - (a.votes || 0));
@@ -160,13 +168,15 @@
     list.innerHTML = top.map((p, i) => {
       const rank = i + 1;
       const topClass = rank <= 3 ? ' top' + rank : '';
+      const cat = CAT_LABEL[p.cat] || 'Top 100';
       return `<a class="prow${topClass}" href="profile.html?id=${encodeURIComponent(p.slug)}">
-        <div class="prank">${rank}</div>
+        <div class="prank">#${rank}</div>
         <img class="ppfp" src="${esc(p.pfp)}" alt="" />
         <div class="pwho">
           <div class="pname">${esc(p.name)}</div>
           <div class="psub">${esc(p.sub || '')}</div>
         </div>
+        <div class="pcat">${esc(cat)}</div>
         <div class="pvotes">${(p.votes || 0).toLocaleString('en-US')}</div>
       </a>`;
     }).join('');
