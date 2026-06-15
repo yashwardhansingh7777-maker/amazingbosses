@@ -43,7 +43,7 @@
 
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  /* Eng category theme — buttons orange, page bg darker shade of orange */
+  /* Eng category theme - buttons orange, page bg darker shade of orange */
   body.theme-eng{
     background:#5a2a06 !important;
   }
@@ -58,7 +58,7 @@
   /* Kicker line ("The Top 100 Bosses of Bangalore") matches the orange theme */
   body.theme-eng .hero-kicker{ color:#F79235 !important; }
 
-  /* Overall (all) category theme — deep blue bg */
+  /* Overall (all) category theme - deep blue bg */
   body.theme-all{ background:#0e2a55 !important; }
   body.theme-all .waves{ display:none !important; }
   body.theme-all .btn-orange{
@@ -69,7 +69,7 @@
   }
   body.theme-all .hero-kicker{ color:#FFB060 !important; }
 
-  /* Product category theme — black bg, white accent buttons + kicker */
+  /* Product category theme - black bg, white accent buttons + kicker */
   body.theme-product{ background:#050505 !important; }
   body.theme-product .waves{ display:none !important; }
   body.theme-product .btn-orange{
@@ -249,7 +249,7 @@
     position:fixed;inset:0;pointer-events:none;z-index:0;
     overflow:hidden;
   }
-  /* White rising stars — same look & motion as the homepage */
+  /* White rising stars - same look & motion as the homepage */
   .sparkles .spark{
     position:absolute;bottom:-12px;width:3px;height:3px;border-radius:999px;
     background:rgba(255,255,255,0.95);
@@ -455,7 +455,7 @@
   /* Rows */
   .table{border-top:1px solid var(--line);border-radius:8px;overflow:visible;position:relative}
 
-  /* Ghost rows — placeholder skeletons that pad each category and feed the blur */
+  /* Ghost rows - placeholder skeletons that pad each category and feed the blur */
   .row.ghost{
     pointer-events:none;
     cursor:default;
@@ -515,7 +515,7 @@
   /* Stacked blur layers. They extend WELL past the visible bottom of the page
      (bottom:-260px) so their hard backdrop-filter edge is never seen, and
      each layer is mask-faded both IN (from the top) and OUT (at the very
-     bottom) so nothing terminates with a visible line. No darkening tint —
+     bottom) so nothing terminates with a visible line. No darkening tint -
      the page bg color matches the natural blurred-content darkness. */
   .list-end-fade{
     position:absolute;left:0;right:0;top:0;bottom:-260px;
@@ -1134,7 +1134,7 @@
       const brandEl = document.getElementById('brandTitle');
       if (brandEl) brandEl.textContent = BRAND_TITLES[p.dataset.filter] || BRAND_TITLES['all'];
       const f = p.dataset.filter;
-      // Show ALL rows in every category — full leaderboard always visible
+      // Show ALL rows in every category - full leaderboard always visible
       rowsAll.forEach(r => { r.style.display = ''; });
       if (coverImg) {
         coverImg.style.opacity = '0';
@@ -1234,7 +1234,7 @@
 
     // Build candidate pairs where the row below is within striking distance of the one above.
     // This keeps the top cluster (Saumil et al.) competing among themselves and the lower
-    // cluster competing among themselves — no implausible 1 -> 900 leaps.
+    // cluster competing among themselves - no implausible 1 -> 900 leaps.
     const candidates = [];
     for (let i = 1; i < visible.length; i++) {
       const va = parseInt(visible[i - 1].dataset.votes, 10);

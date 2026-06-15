@@ -44,7 +44,7 @@
 </script>
 
 <style>
-  /* Color-cycle background — same loop as the Awards page:
+  /* Color-cycle background - same loop as the Awards page:
      blue (overall) -> red (founders) -> burnt orange (engineering) -> black (product) */
   html, body { overflow-x: hidden; }
   body {
@@ -69,7 +69,7 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* ===== Floaty white sparks — subtle, bottom layer (above bg only, below all content) ===== */
+  /* ===== Floaty white sparks - subtle, bottom layer (above bg only, below all content) ===== */
   .sparks { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
   .spark {
     position: absolute; bottom: -16px; border-radius: 50%;
@@ -122,7 +122,7 @@
     font-size: 12px; font-weight: 600; cursor: pointer; transition: background-color .15s ease; }
   .share-copy button:hover { background: rgba(255,255,255,0.1); }
 
-  /* ===== Intro splash — black screen + centered logo, slides up to reveal ===== */
+  /* ===== Intro splash - black screen + centered logo, slides up to reveal ===== */
   .intro {
     position: fixed; inset: 0; z-index: 9999;
     background: #000; display: grid; place-items: center;
@@ -137,7 +137,7 @@
   @keyframes introSlide {
     0%, 60%  { transform: translateY(0); }
     100%     { transform: translateY(-100%); } }
-  /* Logo only fades/scales in at the start, then holds — so it rides UP with the panel as one unit */
+  /* Logo only fades/scales in at the start, then holds - so it rides UP with the panel as one unit */
   @keyframes introLogo {
     0%        { opacity: 0; transform: scale(0.9); }
     100%      { opacity: 1; transform: scale(1); } }
@@ -214,7 +214,7 @@
     to   { transform: translateX(calc(-50% - var(--card-gap) / 2)); } }
   @media (prefers-reduced-motion: reduce) { .carousel-track { animation: none; } }
 
-  /* Slideable mode — on touch the carousel is a native swipe scroller (JS auto-advances it) */
+  /* Slideable mode - on touch the carousel is a native swipe scroller (JS auto-advances it) */
   .carousel-wrap.slideable {
     overflow-x: auto; overflow-y: hidden;
     -webkit-overflow-scrolling: touch; cursor: grab;
@@ -250,7 +250,7 @@
   .card .bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 600ms ease; }
   .card:hover .bg { transform: scale(1.06); }
   .card .veil { display: none; }
-  /* Text already lives in the poster images — hide the overlay text on the moving cards */
+  /* Text already lives in the poster images - hide the overlay text on the moving cards */
   .carousel-wrap .card .content,
   .carousel-wrap .card .clock { display: none; }
   .card .content { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 22px; z-index: 2; }
@@ -288,7 +288,7 @@
 </div>
 
 <!-- ============================================================= -->
-<!--  EDIT YOUR CONTENT HERE — everything below renders from this  -->
+<!--  EDIT YOUR CONTENT HERE - everything below renders from this  -->
 <!-- ============================================================= -->
 <script>
   // The brand / header text
@@ -298,7 +298,7 @@
     hashtag: '#AmazingBosses',
     title: 'The amazing bosses of Bengaluru',
     subtitle:
-      'Real people, naming the bosses who made work worth it. Post about yours on LinkedIn with #AmazingBosses — it shows up here.',
+      'Real people, naming the bosses who made work worth it. Post about yours on LinkedIn with #AmazingBosses and it shows up here.',
     footerLeft: 'Tal · Made in Bengaluru',
   };
 
@@ -372,7 +372,7 @@
               <div class="label">Overall</div>
               <div class="meta">Bangalore's Top 100 · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
           <a class="card" href="board.html?cat=founders-cxos">
             <div class="bg" style="background-image:url('cover.png')"></div>
@@ -382,7 +382,7 @@
               <div class="label">Founders / CXOs</div>
               <div class="meta">Top voices · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
           <a class="card" href="board.html?cat=eng">
             <div class="bg" style="background-image:url('frame4-small.jpg')"></div>
@@ -392,7 +392,7 @@
               <div class="label">Engineering</div>
               <div class="meta">Builders &amp; CTOs · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
           <a class="card" href="board.html?cat=product">
             <div class="bg" style="background-image:url('frame5-small.jpg')"></div>
@@ -402,7 +402,7 @@
               <div class="label">Product</div>
               <div class="meta">Leads &amp; designers · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
 
           <a class="card" href="board.html?cat=all">
@@ -413,7 +413,7 @@
               <div class="label">Overall</div>
               <div class="meta">Bangalore's Top 100 · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
           <a class="card" href="board.html?cat=founders-cxos">
             <div class="bg" style="background-image:url('cover.png')"></div>
@@ -423,7 +423,7 @@
               <div class="label">Founders / CXOs</div>
               <div class="meta">Top voices · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
           <a class="card" href="board.html?cat=eng">
             <div class="bg" style="background-image:url('frame4-small.jpg')"></div>
@@ -433,7 +433,7 @@
               <div class="label">Engineering</div>
               <div class="meta">Builders &amp; CTOs · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
           <a class="card" href="board.html?cat=product">
             <div class="bg" style="background-image:url('frame5-small.jpg')"></div>
@@ -443,7 +443,7 @@
               <div class="label">Product</div>
               <div class="meta">Leads &amp; designers · Tap to view</div>
             </div>
-            <div class="clock"><span class="countdown">—d —h —m —s</span></div>
+            <div class="clock"><span class="countdown">00d 00h 00m 00s</span></div>
           </a>
         </div>
       </div>
@@ -675,7 +675,7 @@
     }
     if (auto) requestAnimationFrame(frame);
 
-    // First touch hands control to the user — stop auto-advancing for good
+    // First touch hands control to the user - stop auto-advancing for good
     let stopped = reduce;
     function takeControl() {
       if (stopped) return;
@@ -760,7 +760,7 @@
     'Made the team better without ever making it about themselves.',
     'The kind of leader people quietly build their careers around.',
     'Set the bar for what good management actually looks like.',
-    'Calm in chaos, clear in the noise — exactly who you want in charge.',
+    'Calm in chaos, clear in the noise, exactly who you want in charge.',
     'Backed bold calls and owned the outcomes, good or bad.',
     'Turned a hard year into the best learning of my career.',
     'Pragmatic, fair, and relentless about doing right by the team.',
@@ -809,7 +809,7 @@
 
   // ---- card actions: like (toggle), reply (composer), share (popup) ----
   $('feed').addEventListener('click', (e) => {
-    // Like — toggles on/off (can't keep stacking likes)
+    // Like - toggles on/off (can't keep stacking likes)
     const likeBtn = e.target.closest('.like-btn');
     if (likeBtn) {
       const n = likeBtn.querySelector('span');
@@ -820,7 +820,7 @@
       n.textContent = String((parseInt(n.textContent, 10) || 0) + (liked ? -1 : 1));
       return;
     }
-    // Reply — open the inline composer
+    // Reply - open the inline composer
     const replyBtn = e.target.closest('.reply-btn');
     if (replyBtn) {
       const box = replyBtn.closest('article').querySelector('.reply-box');
@@ -836,7 +836,7 @@
       box.querySelector('.reply-input').value = '';
       return;
     }
-    // Post a reply — append it under the card
+    // Post a reply - append it under the card
     const postBtn = e.target.closest('.reply-post');
     if (postBtn) {
       const card = postBtn.closest('article');
@@ -858,7 +858,7 @@
       box.classList.add('hidden');
       return;
     }
-    // Share — open the share popup
+    // Share - open the share popup
     const shareBtn = e.target.closest('.share-btn');
     if (shareBtn) {
       const card = shareBtn.closest('article');

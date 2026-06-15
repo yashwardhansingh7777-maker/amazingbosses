@@ -1,4 +1,4 @@
-/* Floaty white sparks — drop-in background layer.
+/* Floaty white sparks - drop-in background layer.
    Self-injects its CSS + a .sparks container, then generates drifting dots.
    Matches the effect on index.html / awards.html. */
 (function () {

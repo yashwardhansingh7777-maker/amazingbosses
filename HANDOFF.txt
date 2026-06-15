@@ -1,4 +1,4 @@
-HANDOFF BRIEF — Amazing Bosses of Bangalore (static site clone)
+HANDOFF BRIEF - Amazing Bosses of Bangalore (static site clone)
 
 REPO
   Owner/name: yashwardhansingh7777-maker/amazingbosses
@@ -12,7 +12,7 @@ TECH STACK
   HTML + CSS + vanilla JS. Tailwind via CDN (cdn.tailwindcss.com) with an inline
   tailwind.config in each page. Google Fonts: Lora (serif), Inter (sans),
   JetBrains Mono. Heading font stack prefers "Circular Std" then Helvetica/Arial
-  (Circular Std is not bundled — falls back to Helvetica).
+  (Circular Std is not bundled - falls back to Helvetica).
   All page data lives in people.js (a global PEOPLE object). No backend, no DB.
 
 FOLDER STRUCTURE
@@ -23,7 +23,7 @@ FOLDER STRUCTURE
                   Big "*Bosses of Bangalore" heading + live "bosses nominated" counter w/ green LED,
                   category buttons (Overall/CXO/Engineering/Product), 4 poster cards each with a
                   top-5 live leaderboard preview + per-category "Nominate your boss for X" button.
-  vouchwall.html  "Vouch Wall" — same vouch cards as the home feed.
+  vouchwall.html  "Vouch Wall" - same vouch cards as the home feed.
   board.html      The category leaderboard (the actual "category pages"). Filter pills
                   (Overall/blue, Founders-CXOs/red, Eng/orange, Product/black) swap a body theme
                   class. White stars rise upward. Live overtake/+1 vouch animation. Reads ?cat=.
@@ -32,8 +32,8 @@ FOLDER STRUCTURE
   nominate.html   Nomination form. Category select (CXO/Engineering/Product) pops a poster card.
                   Reads ?cat= to preselect. "Submit anonymously" generates a random username.
                   On submit: saves to localStorage and redirects to thankyou.html.
-  thankyou.html   Basic placeholder thank-you page. PLACEHOLDER — needs design.
-  aboutus.html    Basic placeholder About page. PLACEHOLDER — needs design.
+  thankyou.html   Basic placeholder thank-you page. PLACEHOLDER - needs design.
+  aboutus.html    Basic placeholder About page. PLACEHOLDER - needs design.
   wall.html       Orphan early boss-wall prototype. Not linked from anywhere; safe to delete.
   people.js       The data source: ~21 people {name, sub, why, pfp, cat, votes}. Categories
                   are: founders-cxos, eng, product. (marketing-sales was removed everywhere.)
@@ -46,7 +46,7 @@ FOLDER STRUCTURE
   .claude/launch.json  Claude Code preview config only (npx serve on port 4321). Not for prod.
 
 RUN LOCALLY
-  No package manager and nothing to install — it's static files.
+  No package manager and nothing to install - it's static files.
   Serve the folder with any static server, e.g.:
     npx serve        (then open the printed URL, usually http://localhost:3000)
     or: python -m http.server 8000   (http://localhost:8000)
@@ -62,7 +62,7 @@ VERCEL
   Live URL: https://amazing-bosses-clone.vercel.app
   Deploy trigger: MANUAL via CLI only. From the project folder:
       vercel --prod --yes --scope ysh1x
-  The GitHub repo is NOT connected to Vercel — pushing to GitHub does NOT auto-deploy.
+  The GitHub repo is NOT connected to Vercel - pushing to GitHub does NOT auto-deploy.
   Note: the global vercel CLI was reinstalled (vercel@latest) after a corrupted install.
   Logged-in Vercel user: yashwardhan074-9917.
 
@@ -73,7 +73,7 @@ WHAT'S BUILT
   - Splash intro on home (black screen + centered logo slides up, ~4s).
   - Home feed + Vouch Wall + per-profile vouches all generated from people.js.
   - Like (toggle), Reply (inline composer), Share (popup with WhatsApp/X/LinkedIn/Telegram/
-    Email/Facebook + copy link) on feed cards — all client-side only, reset on reload.
+    Email/Facebook + copy link) on feed cards - all client-side only, reset on reload.
   - Nominate form with category preview cards, anonymous random username, localStorage save,
     redirect to thankyou.html. Awards "Nominate your boss for <cat>" buttons deep-link with ?cat=.
   - Mobile carousel: native swipe scroller that auto-advances and stops on first touch.
@@ -81,11 +81,11 @@ WHAT'S BUILT
   - Deployed to Vercel + pushed to GitHub.
 
 OPEN TODOS
-  1. Design the thank-you page (thankyou.html) — currently a placeholder.
-  2. Design the About Us page (aboutus.html) — currently a placeholder.
+  1. Design the thank-you page (thankyou.html) - currently a placeholder.
+  2. Design the About Us page (aboutus.html) - currently a placeholder.
   3. Verify the mobile swipe carousel on a real device (couldn't be tested in the desktop
      preview; logic is deployed).
   4. (Optional) Connect the GitHub repo to the Vercel project for auto-deploy on push.
   5. (Optional) Delete the orphan wall.html.
   6. (Optional) Rename "top100 bob logo FINAL.png" to a space-free filename to drop URL-encoding.
-  7. Everything is front-end only — likes/replies/nominations don't persist to any backend.
+  7. Everything is front-end only - likes/replies/nominations don't persist to any backend.

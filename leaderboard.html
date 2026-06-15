@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Leaderboard · Bosses of Bangalore</title>
-<meta name="description" content="The overall Top 100 Bosses of Bangalore — ranked by vouches, named by the people they led." />
+<meta name="description" content="The overall Top 100 Bosses of Bangalore, ranked by vouches, named by the people they led." />
 <link rel="icon" href="top100%20bob%20logo%20FINAL.png" type="image/png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -190,7 +190,7 @@
     // so ranks 6–7 stay the same set; we just keep them lively.
     const fmt = (n) => n.toLocaleString('en-US');
 
-    // live vote state (only ever increases — feels like real vouches landing)
+    // live vote state (only ever increases - feels like real vouches landing)
     const live = {};
     top.forEach((p) => { live[p.slug] = p.votes || 0; });
 
@@ -221,7 +221,7 @@
 
     // Keep the protected four inside the top 5 by nudging votes up when needed.
     function enforce() {
-      // 1) protected four must ALWAYS hold 4 of the top 5 — so at most ONE
+      // 1) protected four must ALWAYS hold 4 of the top 5 - so at most ONE
       //    non-protected may outrank them. Guarantee every protected sits above
       //    the SECOND-highest non-protected.
       const nonProt = order.filter((s) => !PROTECTED.includes(s)).sort((a, b) => live[b] - live[a]);
@@ -277,7 +277,7 @@
     }
 
     function tick() {
-      // award a flurry of fresh vouches — lots of small leapfrogs across the cluster
+      // award a flurry of fresh vouches - lots of small leapfrogs across the cluster
       const bumps = 4 + Math.floor(Math.random() * 4);
       for (let i = 0; i < bumps; i++) {
         // strongly bias toward the lively top cluster so ranks keep trading

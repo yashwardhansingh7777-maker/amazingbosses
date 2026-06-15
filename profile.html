@@ -118,7 +118,7 @@
   }
   @media(min-width:640px){ .avatar-big{ width:160px; height:160px; } }
 
-  /* Rank number sits right beside the avatar — single inline-block so # and digit stay glued */
+  /* Rank number sits right beside the avatar - single inline-block so # and digit stay glued */
   .rank-badge{
     display:inline-block;
     font-weight:900;line-height:0.9;letter-spacing:-0.04em;
@@ -135,7 +135,7 @@
     margin-right:-0.04em;
   }
 
-  /* Category tag below the big number — shows only the category name */
+  /* Category tag below the big number - shows only the category name */
   .rank-cat{
     display:inline-block;
     margin-top:6px;
@@ -414,7 +414,7 @@
     letter-spacing:0.04em;
   }
 
-  /* Background atmosphere — subtle red waves */
+  /* Background atmosphere - subtle red waves */
   .waves{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
   .waves .wave{
     position:absolute;left:-25%;right:-25%;
@@ -514,11 +514,11 @@
 <script src="people.js"></script>
 <script>
   // Pool of vouch lines. A profile's vouches are generated FROM other real nominees,
-  // each paired with one of these lines — deterministically per slug so it reads
+  // each paired with one of these lines - deterministically per slug so it reads
   // consistently across reloads.
   const VOUCH_TEXTS = [
     "Best boss I've worked under. Made me a better engineer in the process.",
-    "Honest, demanding, kind — in roughly that order. The combination is rare.",
+    "Honest, demanding, kind, in roughly that order. The combination is rare.",
     "Cared about my career more than the next quarter. That's why I stayed.",
     "Set the bar for what management is supposed to feel like.",
     "Took a chance on me when I had nothing to show. I owe them a lot.",
@@ -538,7 +538,7 @@
     "Backed my idea in the room when it would've been easier not to.",
     "Genuinely one of the good ones. Rare in this industry.",
     "Pushed me harder than anyone and I'm better for every bit of it.",
-    "Knows the difference between urgent and important — and acts on it.",
+    "Knows the difference between urgent and important, and acts on it.",
     "Made hard decisions look easy and easy people feel valued.",
     "Still the person I call when I'm stuck on something big.",
     "Built a team people fight to get onto. That tells you everything.",
@@ -642,7 +642,7 @@
     const p = (typeof PEOPLE !== 'undefined') ? PEOPLE[id] : null;
     const main = document.getElementById('main');
     if (!p) {
-      main.innerHTML = '<div class="not-found"><h1>Profile not found.</h1><p>That nominee isn\'t on the list — head back to the leaderboard.</p></div>';
+      main.innerHTML = '<div class="not-found"><h1>Profile not found.</h1><p>That nominee isn\'t on the list. Head back to the leaderboard.</p></div>';
       document.title = 'Profile not found · Top 100 Bosses of Bangalore';
       return;
     }
