@@ -58,29 +58,29 @@
   /* Kicker line ("The Top 100 Bosses of Bangalore") matches the orange theme */
   body.theme-eng .hero-kicker{ color:#F79235 !important; }
 
-  /* Overall (all) category theme - deep blue bg */
-  body.theme-all{ background:#0e2a55 !important; }
+  /* Overall (all) category theme - black bg, white accent buttons + kicker (swapped with product) */
+  body.theme-all{ background:#050505 !important; }
   body.theme-all .waves{ display:none !important; }
   body.theme-all .btn-orange{
-    background:#E67E22 !important;
-  }
-  body.theme-all .btn-orange:hover{
-    background:#FF933A !important;
-  }
-  body.theme-all .hero-kicker{ color:#FFB060 !important; }
-
-  /* Product category theme - black bg, white accent buttons + kicker */
-  body.theme-product{ background:#050505 !important; }
-  body.theme-product .waves{ display:none !important; }
-  body.theme-product .btn-orange{
     background:#ffffff !important;
     color:#0a0a0a !important;
   }
-  body.theme-product .btn-orange:hover{
+  body.theme-all .btn-orange:hover{
     background:#e6e6e6 !important;
   }
-  body.theme-product .btn-orange .dot{ background:#0a0a0a !important; }
-  body.theme-product .hero-kicker{ color:#ffffff !important; }
+  body.theme-all .btn-orange .dot{ background:#0a0a0a !important; }
+  body.theme-all .hero-kicker{ color:#ffffff !important; }
+
+  /* Product category theme - deep blue bg (swapped with overall) */
+  body.theme-product{ background:#0e2a55 !important; }
+  body.theme-product .waves{ display:none !important; }
+  body.theme-product .btn-orange{
+    background:#E67E22 !important;
+  }
+  body.theme-product .btn-orange:hover{
+    background:#FF933A !important;
+  }
+  body.theme-product .hero-kicker{ color:#FFB060 !important; }
 
   body{
     background:var(--ink);
