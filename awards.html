@@ -160,8 +160,10 @@
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; }
   .preview .phead { margin-bottom: 14px; }
   .preview .ptitle {
-    font-size: clamp(24px, 3.4vw, 34px); font-weight: 700; letter-spacing: -0.01em;
-    color: #faf5ee; line-height: 1.02; text-transform: uppercase; }
+    display: inline-block; font-size: clamp(24px, 3.4vw, 34px); font-weight: 700; letter-spacing: -0.01em;
+    color: #faf5ee; line-height: 1.02; text-transform: uppercase; text-decoration: none;
+    cursor: pointer; transition: color .15s ease, text-shadow .15s ease; }
+  .preview a.ptitle:hover { color: #ffd8a0; text-shadow: 0 0 16px rgba(255,180,100,0.35); }
   .preview .pmeta {
     margin-top: 7px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
     color: rgba(250,245,238,0.55); font-weight: 500; }
@@ -486,7 +488,7 @@
     const remaining = all.length - top.length;
     panel.innerHTML = `
       <div class="phead">
-        <div class="ptitle">${panel.dataset.title}</div>
+        <a class="ptitle" href="board.html?cat=${encodeURIComponent(cat)}">${panel.dataset.title}</a>
         <div class="pmeta">${panel.dataset.meta}</div>
       </div>
       <div class="pcols"><span>#</span><span>Boss</span><span class="pcol-why">Why</span><span class="pcol-end">Endorsements</span></div>
