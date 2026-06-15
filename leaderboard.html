@@ -77,19 +77,24 @@
   .prow:hover { background:rgba(250,245,238,0.05); }
   .prank { font-size:24px; color:rgba(250,245,238,0.55); font-weight:800; text-align:center; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; }
   .prow.top1 .prank { color:#ffd87a; } .prow.top2 .prank { color:#e6e6e6; } .prow.top3 .prank { color:#e0a06a; }
-  /* Top 5 glow */
-  .prow.glow {
-    background:rgba(255,216,122,0.06);
-    border:1px solid rgba(255,216,122,0.30);
-    box-shadow:0 0 18px rgba(255,200,110,0.18), inset 0 0 22px rgba(255,200,110,0.05);
-    animation:rowGlow 3.2s ease-in-out infinite; }
-  .prow.glow .pname { text-shadow:0 0 14px rgba(255,210,130,0.35); }
-  .prow.glow .prank { text-shadow:0 0 16px rgba(255,210,130,0.55); }
-  .prow.glow:hover { background:rgba(255,216,122,0.10); }
-  @keyframes rowGlow {
-    0%,100% { box-shadow:0 0 14px rgba(255,200,110,0.14), inset 0 0 18px rgba(255,200,110,0.04); }
-    50%     { box-shadow:0 0 28px rgba(255,200,110,0.30), inset 0 0 26px rgba(255,200,110,0.08); } }
-  @media (prefers-reduced-motion: reduce) { .prow.glow { animation:none; } }
+  /* Top 5: glowing names only (no row box) */
+  .prow.glow .pname {
+    color:#fff;
+    animation:nameGlow 2.6s ease-in-out infinite; }
+  @keyframes nameGlow {
+    0%,100% { text-shadow:0 0 6px rgba(255,210,130,0.40); }
+    50%     { text-shadow:0 0 16px rgba(255,212,130,0.95), 0 0 30px rgba(255,190,90,0.5); } }
+  @media (prefers-reduced-motion: reduce) { .prow.glow .pname { animation:none; text-shadow:0 0 10px rgba(255,210,130,0.6); } }
+
+  /* Live vouch motion */
+  .prow { will-change:transform; }
+  .pvotes { position:relative; transition:color .25s ease, text-shadow .25s ease; }
+  .pvotes.flash { color:#7dffb0; text-shadow:0 0 12px rgba(34,255,102,0.6); }
+  .plus-one {
+    position:absolute; right:0; top:-13px; font-size:11px; font-weight:800; color:#22ff66;
+    text-shadow:0 0 8px rgba(34,255,102,0.5); pointer-events:none;
+    animation:plusUp 1.3s ease-out forwards; }
+  @keyframes plusUp { 0%{opacity:0; transform:translateY(4px);} 20%{opacity:1;} 100%{opacity:0; transform:translateY(-16px);} }
   .ppfp { width:52px; height:52px; border-radius:12px; object-fit:cover; }
   .pwho { min-width:0; display:flex; flex-direction:column; gap:3px; }
   .pname { font-size:19px; font-weight:700; color:#faf5ee; line-height:1.18; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -177,22 +182,143 @@
     people.sort((a, b) => (b.votes || 0) - (a.votes || 0));
     const top = people.slice(0, 100);
 
+    // ----- protected ranking rules -----
+    const PROTECTED = ['saumil-tripathi', 'sanchit-tripathi', 'rishikesh-ganguly', 'jainam-tal-sania'];
+    const LEADER = 'saumil-tripathi';       // #1 most of the time
+    const RUNNER = 'sanchit-tripathi';      // briefly takes #1, then loses it
+    // The cluster (top ~7) is naturally separated from the rest by a big vote gap,
+    // so ranks 6–7 stay the same set; we just keep them lively.
+    const fmt = (n) => n.toLocaleString('en-US');
+
+    // live vote state (only ever increases — feels like real vouches landing)
+    const live = {};
+    top.forEach((p) => { live[p.slug] = p.votes || 0; });
+
+    // ----- build rows once, keyed by slug -----
     const list = document.getElementById('lbList');
-    list.innerHTML = top.map((p, i) => {
-      const rank = i + 1;
-      const topClass = (rank <= 3 ? ' top' + rank : '') + (rank <= 5 ? ' glow' : '');
+    const rowEls = {};
+    list.innerHTML = top.map((p) => {
       const cat = CAT_LABEL[p.cat] || 'Top 100';
-      return `<a class="prow${topClass}" href="profile.html?id=${encodeURIComponent(p.slug)}">
-        <div class="prank">#${rank}</div>
+      return `<a class="prow" data-slug="${esc(p.slug)}" href="profile.html?id=${encodeURIComponent(p.slug)}">
+        <div class="prank"></div>
         <img class="ppfp" src="${esc(p.pfp)}" alt="" />
         <div class="pwho">
           <div class="pname">${esc(p.name)}</div>
           <div class="psub">${esc(p.sub || '')}</div>
         </div>
         <div class="pcat">${esc(cat)}</div>
-        <div class="pvotes">${(p.votes || 0).toLocaleString('en-US')}</div>
+        <div class="pvotes"><span class="pv-num">${fmt(live[p.slug])}</span></div>
       </a>`;
     }).join('');
+    list.querySelectorAll('.prow').forEach((el) => { rowEls[el.dataset.slug] = el; });
+
+    const order = top.map((p) => p.slug);          // current visual order
+    let leaderPhase = 0;                            // ticks remaining where RUNNER leads
+
+    function currentOrder() {
+      return [...order].sort((a, b) => live[b] - live[a]);
+    }
+
+    // Keep the protected four inside the top 5 by nudging votes up when needed.
+    function enforce() {
+      let ranked = currentOrder();
+      // 1) protected four must all sit in the top 5
+      for (let guard = 0; guard < 8; guard++) {
+        ranked = currentOrder();
+        const top5 = ranked.slice(0, 5);
+        const missing = PROTECTED.find((s) => !top5.includes(s));
+        if (!missing) break;
+        // boost the missing protected just above the current 5th place
+        const fifthVotes = live[ranked[4]];
+        live[missing] = fifthVotes + 1 + Math.floor(Math.random() * 2);
+      }
+      // 2) Saumil is #1 most of the time; occasionally Sanchit leads for a couple ticks
+      const maxVotes = Math.max(...order.map((s) => live[s]));
+      if (leaderPhase > 0) {
+        // Sanchit on top this window
+        live[RUNNER] = maxVotes + 1;
+        if (live[LEADER] >= live[RUNNER]) live[RUNNER] = live[LEADER] + 1;
+        leaderPhase--;
+      } else {
+        // Saumil reclaims / holds #1
+        if (live[LEADER] <= maxVotes) live[LEADER] = maxVotes + 1 + Math.floor(Math.random() * 2);
+        // small chance to kick off a brief Sanchit-leads window
+        if (Math.random() < 0.12) leaderPhase = 1 + Math.floor(Math.random() * 2);
+      }
+    }
+
+    // FLIP reorder: animate rows sliding to their new positions
+    function render() {
+      const firstTops = {};
+      order.forEach((s) => { firstTops[s] = rowEls[s].getBoundingClientRect().top; });
+
+      const ranked = currentOrder();
+      ranked.forEach((s, i) => {
+        const el = rowEls[s];
+        list.appendChild(el);                       // reorder in DOM
+        el.classList.toggle('glow', i < 5);         // top-5 names glow
+        el.classList.remove('top1', 'top2', 'top3');
+        if (i < 3) el.classList.add('top' + (i + 1));
+        el.querySelector('.prank').textContent = '#' + (i + 1);
+      });
+      order.length = 0; ranked.forEach((s) => order.push(s));
+
+      // invert + play
+      order.forEach((s) => {
+        const el = rowEls[s];
+        const last = el.getBoundingClientRect().top;
+        const dy = (firstTops[s] || last) - last;
+        if (dy) {
+          el.style.transition = 'none';
+          el.style.transform = 'translateY(' + dy + 'px)';
+          requestAnimationFrame(() => {
+            el.style.transition = 'transform 650ms cubic-bezier(0.2,0.8,0.2,1)';
+            el.style.transform = '';
+          });
+        }
+      });
+    }
+
+    function tick() {
+      // award a handful of fresh vouches across the board
+      const bumps = 3 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < bumps; i++) {
+        // bias toward the lively cluster so the top stays active
+        const pool = Math.random() < 0.78 ? top.slice(0, 9) : top;
+        const p = pool[Math.floor(Math.random() * pool.length)];
+        const inc = 1 + Math.floor(Math.random() * 4);
+        live[p.slug] += inc;
+        showGain(p.slug, inc);
+      }
+      enforce();
+      render();
+      // refresh the numbers after enforce()/render reorder
+      order.forEach((s) => {
+        const numEl = rowEls[s].querySelector('.pv-num');
+        if (numEl) numEl.textContent = fmt(live[s]);
+      });
+      setTimeout(tick, 1400 + Math.random() * 1200);
+    }
+
+    function showGain(slug, inc) {
+      const el = rowEls[slug];
+      if (!el) return;
+      const votes = el.querySelector('.pvotes');
+      const numEl = el.querySelector('.pv-num');
+      if (numEl) numEl.textContent = fmt(live[slug]);
+      votes.classList.add('flash');
+      setTimeout(() => votes.classList.remove('flash'), 320);
+      const pop = document.createElement('span');
+      pop.className = 'plus-one';
+      pop.textContent = '+' + inc;
+      votes.appendChild(pop);
+      setTimeout(() => pop.remove(), 1300);
+    }
+
+    enforce();
+    render();
+    order.forEach((s) => { rowEls[s].querySelector('.pv-num').textContent = fmt(live[s]); });
+    setTimeout(tick, 1200);
 
     // Live "bosses nominated" counter (same flavor as the other pages)
     const cnt = document.getElementById('bossCount');
