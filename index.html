@@ -594,11 +594,11 @@
     const leave = () => {
       try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
       if (btn) btn.disabled = true;
-      // delayed swipe up
+      // longer, weighty pause before the swipe up
       setTimeout(() => {
         intro.classList.add('leaving');
         setTimeout(done, 1500); // safety: finalize even if animationend is throttled
-      }, 700);
+      }, 1600);
     };
     if (btn) btn.addEventListener('click', leave);
   })();
