@@ -77,6 +77,19 @@
   .prow:hover { background:rgba(250,245,238,0.05); }
   .prank { font-size:24px; color:rgba(250,245,238,0.55); font-weight:800; text-align:center; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; }
   .prow.top1 .prank { color:#ffd87a; } .prow.top2 .prank { color:#e6e6e6; } .prow.top3 .prank { color:#e0a06a; }
+  /* Top 5 glow */
+  .prow.glow {
+    background:rgba(255,216,122,0.06);
+    border:1px solid rgba(255,216,122,0.30);
+    box-shadow:0 0 18px rgba(255,200,110,0.18), inset 0 0 22px rgba(255,200,110,0.05);
+    animation:rowGlow 3.2s ease-in-out infinite; }
+  .prow.glow .pname { text-shadow:0 0 14px rgba(255,210,130,0.35); }
+  .prow.glow .prank { text-shadow:0 0 16px rgba(255,210,130,0.55); }
+  .prow.glow:hover { background:rgba(255,216,122,0.10); }
+  @keyframes rowGlow {
+    0%,100% { box-shadow:0 0 14px rgba(255,200,110,0.14), inset 0 0 18px rgba(255,200,110,0.04); }
+    50%     { box-shadow:0 0 28px rgba(255,200,110,0.30), inset 0 0 26px rgba(255,200,110,0.08); } }
+  @media (prefers-reduced-motion: reduce) { .prow.glow { animation:none; } }
   .ppfp { width:52px; height:52px; border-radius:12px; object-fit:cover; }
   .pwho { min-width:0; display:flex; flex-direction:column; gap:3px; }
   .pname { font-size:19px; font-weight:700; color:#faf5ee; line-height:1.18; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -167,7 +180,7 @@
     const list = document.getElementById('lbList');
     list.innerHTML = top.map((p, i) => {
       const rank = i + 1;
-      const topClass = rank <= 3 ? ' top' + rank : '';
+      const topClass = (rank <= 3 ? ' top' + rank : '') + (rank <= 5 ? ' glow' : '');
       const cat = CAT_LABEL[p.cat] || 'Top 100';
       return `<a class="prow${topClass}" href="profile.html?id=${encodeURIComponent(p.slug)}">
         <div class="prank">#${rank}</div>
